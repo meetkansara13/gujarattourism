@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our Team | Gujarat Tourism</title>
+    <link rel="stylesheet" href="{% static 'style/team.css' %}">
+</head>
+
+<body>
+
+<section class="classic-hero">
+    <h1>Meet Our Team</h1>
+    <p>The people behind Gujarat’s global tourism movement.</p>
+</section>
+
+<div class="section-wrap">
+
+    <div class="glass-box">
+        <h2>Our Core Leadership</h2>
+        <p>
+            A passionate team of visionaries, culture enthusiasts, technologists and field experts —
+            all working to showcase the heart of Gujarat to the world.
+        </p>
+    </div>
+
+    <div class="team-grid">
+
+        <div class="team-card">
+            <img src="{% static 'images/team_1.jpg' %}" alt="Director">
+            <h3>Mrugesh Kansara</h3>
+            <p class="role">Director of Tourism</p>
+            <p class="bio">Oversees tourism development, global partnerships and sustainable development projects.</p>
+        </div>
+
+        <div class="team-card">
+            <img src="{% static 'images/team2.jpg' %}" alt="Heritage Head">
+            <h3>Anjali Mehta</h3>
+            <p class="role">Chief Heritage Officer</p>
+            <p class="bio">Ensures preservation of monuments, heritage sites and cultural identity of Gujarat.</p>
+        </div>
+
+        <div class="team-card">
+            <img src="{% static 'images/team3.jpg' %}" alt="Digital Lead">
+            <h3>Ashwin Trivedi</h3>
+            <p class="role">Digital Strategy Head</p>
+            <p class="bio">Leads digital innovation, AI integration, and smart tourism initiatives.</p>
+        </div>
+
+        <div class="team-card">
+            <img src="{% static 'images/team4.jpg' %}" alt="PR Head">
+            <h3>Priya Shah</h3>
+            <p class="role">Public Relations Manager</p>
+            <p class="bio">Handles communications, press releases, and international media relations.</p>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

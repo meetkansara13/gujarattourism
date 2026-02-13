@@ -1,0 +1,312 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Festivals of Gujarat | Gujarat Tourism</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/festival.css' %}">
+
+ <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>
+        /* Make sure the map is visible */
+        #map {
+            height: 500px;   /* adjust height as needed */
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+
+    <style>
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #0877d8;
+            color: #0938d3;
+        }
+        .navbar .logo span { font-weight: bold; }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; }
+        .search-box form { display: flex; }
+        .search-box input[type="text"] {
+            padding: 6px 12px;
+            border-radius: 6px 0 0 6px;
+            border: none;
+            outline: none;
+        }
+        .search-box .btn-search {
+            padding: 6px 14px;
+            background-color: #fff;
+            color: #ffb400;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .search-box .btn-search:hover { background-color: #ffe066; }
+
+        /* Hero */
+        .festival-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url("{% static 'images/festival-hero.jpg' %}") no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .festival-hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .festival-hero p { font-size: 20px; max-width: 700px; margin: auto; }
+
+        /* Festival Cards */
+        .festival-section { padding: 60px 20px; background-color: transparent rgb(226, 226, 36); }
+        .section-title { text-align: center; font-size: 36px; margin-bottom: 40px; color: #0e1ec9; }
+        .festival-grid { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+        .festival-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .festival-card:hover { transform: scale(1.03); }
+        .festival-card img { width: 100%; height: 200px; object-fit: cover; }
+        .festival-card .content { padding: 20px; }
+        .festival-card .content h3 { font-size: 22px; margin-bottom: 10px; }
+        .festival-card .content p { font-size: 15px; color: #444; }
+
+        /* Festival Planner */
+        .festival-planner { padding: 60px 20px; text-align: center; background: #b9d021d6; }
+        #festival-form select, #festival-form button {
+            padding: 10px 14px; margin: 5px;
+            border-radius: 6px; border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        #festival-form button {
+            background-color: #ffb400; color: #fff; border: none;
+            cursor: pointer; transition: 0.3s;
+        }
+        #festival-form button:hover { background-color: #e69a00; }
+        #suggestion { margin-top: 20px; font-size: 18px; color: #333; }
+
+        /* Map */
+        .festival-map { padding: 60px 20px; background: #f7f7f7; text-align: center; }
+        #map { width: 100%; height: 400px; border-radius: 12px; margin-top: 20px; }
+
+        /* Countdown */
+        .countdown { text-align: center; font-size: 24px; margin-top: 30px; color: #ff4d00; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+ <header class="navbar">
+        <div class="logo">Gujarat <span>Tourism</span></div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+            <li><a href="{% url 'heritage' %}">Heritage</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+    </header>
+
+<!-- Hero Section -->
+<div class="festival-hero">
+    <h1>Festivals of Gujarat</h1>
+    <p>Experience the vibrant culture, colors, and traditions of Gujarat</p>
+</div>
+
+<!-- Festival Cards -->
+<section class="festival-section">
+    <h2 class="section-title">Major Festivals</h2>
+    <div class="festival-grid">
+        <div class="festival-card">
+            <img src="{% static 'images/navratri.jpg' %}" alt="Navratri Festival">
+            <div class="content">
+                <h3>Navratri</h3>
+                <p>The world-famous nine-night dance festival celebrating Goddess Durga with Garba and Dandiya.</p>
+            </div>
+        </div>
+        <div class="festival-card">
+            <img src="{% static 'images/rannutsav.jpg' %}" alt="Rann Utsav">
+            <div class="content">
+                <h3>Rann Utsav</h3>
+                <p>A desert carnival in the white sands of Kutch with folk music, art, camel rides, and tent stays.</p>
+            </div>
+        </div>
+        <div class="festival-card">
+            <img src="{% static 'images/uttarayan.jpg' %}" alt="Uttarayan Kite Festival">
+            <div class="content">
+                <h3>Uttarayan</h3>
+                <p>Celebrate the Kite Festival with colorful skies, music, sweets, and kite battles.</p>
+            </div>
+        </div>
+        <div class="festival-card">
+            <img src="{% static 'images/janmashtami.jpg' %}" alt="Janmashtami Festival">
+            <div class="content">
+                <h3>Janmashtami</h3>
+                <p>Commemorating the birth of Lord Krishna with Raas Leela, Bhajans, and temple celebrations.</p>
+            </div>
+        </div>
+        <div class="festival-card">
+            <img src="{% static 'images/modhera.jpg' %}" alt="Modhera Dance Festival">
+            <div class="content">
+                <h3>Modhera Dance Festival</h3>
+                <p>Classical dance performances under the full moon at the stunning Sun Temple in Modhera.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Festival Planner Section -->
+<section class="festival-planner">
+    <h2 class="section-title">Plan Your Festival Visit</h2>
+    <p style="
+      color:#1127cf;
+      font-size:30px;
+      font-weight:1000;
+      text-align:center;
+      display:inline-block;
+      padding:0 20px;
+      -webkit-mask-image:linear-gradient( transparent, rgb(40, 74, 197) 20%, rgb(25, 15, 222) 80%, transparent);
+      -webkit-mask-repeat:no-repeat;
+      -webkit-mask-size:100% 100%;
+      mask-image:linear-gradient(transparent, rgb(10, 13, 187) 20%, rgb(18, 21, 198) 80%, transparent);
+      mask-repeat:no-repeat;
+      mask-size:100% 100%;
+  ">
+    See nearby events, fairs, and attractions during your festival visit.
+  </p>
+
+    <form id="festival-form">
+        <select id="festival-select">
+            <option value="">-- Select Festival --</option>
+            <option value="Navratri">Navratri</option>
+            <option value="Rann Utsav">Rann Utsav</option>
+            <option value="Uttarayan">Uttarayan</option>
+            <option value="Janmashtami">Janmashtami</option>
+            <option value="Modhera Dance">Modhera Dance Festival</option>
+        </select>
+        <button type="button" onclick="showSuggestion()">Get Suggestion</button>
+    </form>
+
+    <div id="suggestion"></div>
+    <div class="countdown" id="countdown"></div>
+</section>
+
+<!-- Interactive Map Section -->
+<section class="festival-map">
+    <h2 class="section-title">Nearby Fairs & Events</h2>
+    <p>See nearby events, fairs, and attractions during your festival visit.</p>
+    <div id="map"></div>
+</section>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the map
+        const map = L.map('map').setView([22.2587, 71.1924], 6);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Example markers
+        L.marker([23.0225, 72.5714]).addTo(map).bindPopup("Ahmedabad - Uttarayan");
+        L.marker([23.241999, 69.666931]).addTo(map).bindPopup("Rann Utsav - Kutch");
+    });
+    </script>
+
+<script>
+/* Festival Suggestion */
+function showSuggestion() {
+    const festival = document.getElementById('festival-select').value;
+    const suggestionDiv = document.getElementById('suggestion');
+    const countdownDiv = document.getElementById('countdown');
+
+    const suggestions = {
+        "Navratri": "Visit Ahmedabad or Vadodara during October for Garba & Dandiya nights.",
+        "Rann Utsav": "Visit Kutch between December-February for desert carnival & folk music.",
+        "Uttarayan": "Visit Ahmedabad in January to enjoy colorful kites & competitions.",
+        "Janmashtami": "Visit Dwarka in August to participate in Raas Leela celebrations.",
+        "Modhera Dance": "Visit Modhera Sun Temple in Feb/March for classical dance performances."
+    };
+
+    const countdownDates = {
+        "Navratri": new Date("Oct 5, 2025 00:00:00"),
+        "Rann Utsav": new Date("Dec 1, 2025 00:00:00"),
+        "Uttarayan": new Date("Jan 14, 2026 00:00:00"),
+        "Janmashtami": new Date("Aug 7, 2025 00:00:00"),
+        "Modhera Dance": new Date("Feb 15, 2026 00:00:00")
+    };
+
+    if(festival && suggestions[festival]) {
+        suggestionDiv.innerHTML = suggestions[festival];
+        const now = new Date().getTime();
+        const eventDate = countdownDates[festival].getTime();
+        const diff = eventDate - now;
+        if(diff > 0) {
+            const days = Math.floor(diff / (1000*60*60*24));
+            countdownDiv.innerHTML = `Next ${festival} starts in ${days} days!`;
+        } else {
+            countdownDiv.innerHTML = `${festival} is ongoing or completed this year.`;
+        }
+    } else {
+        suggestionDiv.innerHTML = "Please select a festival.";
+        countdownDiv.innerHTML = "";
+    }
+}
+
+
+
+/* Map Initialization */
+function initMap() {
+    const map = L.map('map').setView([22.2587, 71.1924], 6);
+
+    // Load OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Festival markers
+    const festivals = [
+        { coords: [23.241999, 69.666931], title: "Rann Utsav - Kutch" },
+        { coords: [22.3072, 73.1812], title: "Navratri - Vadodara" },
+        { coords: [23.0225, 72.5714], title: "Uttarayan - Ahmedabad" },
+        { coords: [21.6417, 69.6293], title: "Janmashtami - Somnath" },
+        { coords: [23.6, 72.1333], title: "Modhera Dance Festival" }
+    ];
+
+    festivals.forEach(f => {
+        L.marker(f.coords).addTo(map).bindPopup(f.title);
+    });
+
+    // Fairs
+    const fairs = [
+        { coords: [23.0300, 72.5800], title: "Local Handicraft Fair" },
+        { coords: [23.0250, 72.5650], title: "Food Festival" }
+    ];
+
+    fairs.forEach(f => {
+        L.marker(f.coords).addTo(map).bindPopup(f.title);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", initMap);
+</script>
+
+</body>
+</html>

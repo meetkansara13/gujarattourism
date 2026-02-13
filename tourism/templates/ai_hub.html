@@ -1,0 +1,800 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Experience Center | Gujarat Tourism</title>
+
+<!-- Optional: same font you use on home -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --navy:#0f4c81;
+    --gold:#ffb400;
+    --teal:#0f766e;
+    --bg-soft:#eef2ff;
+    --card-bg:#ffffff;
+    --text-main:#111827;
+    --text-muted:#6b7280;
+    --chip-bg:rgba(15,118,110,0.12);
+    --border-soft:#e5e7eb;
+}
+
+*{box-sizing:border-box;}
+
+body{
+    margin:0;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #18243b 0, #0b1020 40%, #020617 100%);
+    color:var(--text-main);
+}
+
+/* Navbar – copy of your main style */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 40px;
+    background:linear-gradient(90deg,#061525,#0f4c81);
+    color:white;
+    box-shadow:0 10px 25px rgba(0,0,0,0.45);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+.navbar .logo{
+    font-weight:700;
+    font-size:22px;
+}
+.navbar .logo span{color:var(--gold);}
+.nav-links{
+    display:flex;
+    gap:22px;
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+.nav-links a{
+    color:#e5e7eb;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+}
+.nav-links a:hover{
+    color:#ffffff;
+}
+
+/* Page container */
+.page-wrap{
+    max-width:1200px;
+    margin:30px auto 60px;
+    padding:0 20px 40px;
+}
+
+/* Hero section with dark gradient + image */
+.hero-shell{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 18px 45px rgba(0,0,0,0.55);
+    background:#020617;
+}
+.hero-bg{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(135deg, rgba(0,0,0,0.75), rgba(15,76,129,0.35)),
+        url("{% static 'images/rannutsav.jpg' %}") center/cover no-repeat;
+    filter:brightness(0.85);
+}
+.hero-inner{
+    position:relative;
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    padding:32px 32px 26px;
+    color:#f9fafb;
+}
+.hero-main{
+    flex:1 1 320px;
+}
+.hero-kicker{
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-size:11px;
+    color:#bfdbfe;
+    margin-bottom:6px;
+}
+.hero-title{
+    font-size:36px;
+    font-weight:800;
+    color:var(--gold);
+    margin:0 0 8px;
+}
+.hero-text{
+    margin:0 0 16px;
+    font-size:15px;
+    max-width:520px;
+    color:#e5e7eb;
+}
+.hero-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:6px;
+}
+.hero-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:5px 11px;
+    border-radius:999px;
+    font-size:11px;
+    text-transform:uppercase;
+    border:1px solid rgba(248,250,252,0.18);
+    background:rgba(15,23,42,0.65);
+}
+.hero-tag-dot{
+    width:7px;height:7px;
+    border-radius:50%;
+    background:var(--gold);
+}
+.hero-subnote{
+    font-size:12px;
+    color:#d1d5db;
+}
+
+.hero-side{
+    flex:0 0 280px;
+    max-width:320px;
+    margin-left:auto;
+}
+.hero-side-card{
+    background:rgba(15,23,42,0.9);
+    border-radius:16px;
+    padding:14px 14px 10px;
+    border:1px solid rgba(148,163,184,0.55);
+    box-shadow:0 10px 30px rgba(15,23,42,0.75);
+    backdrop-filter:blur(14px);
+}
+.hero-side-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:11px;
+    color:#9ca3af;
+    margin-bottom:6px;
+}
+.hero-pill{
+    padding:3px 9px;
+    border-radius:999px;
+    background:rgba(34,197,94,0.09);
+    color:#bbf7d0;
+    border:1px solid rgba(34,197,94,0.4);
+}
+.hero-chat{
+    font-size:12px;
+    line-height:1.45;
+    color:#e5e7eb;
+}
+.hero-chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:8px;
+}
+.hero-chip{
+    font-size:10px;
+    padding:3px 8px;
+    border-radius:999px;
+    background:rgba(15,23,42,0.75);
+    border:1px dashed rgba(148,163,184,0.7);
+}
+
+/* Tool switch row */
+.tool-row{
+    margin:18px auto 8px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+.tool-pill{
+    border-radius:999px;
+    border:1px solid var(--border-soft);
+    background:rgba(15,23,42,0.8);
+    color:#e5e7eb;
+    padding:7px 13px;
+    font-size:12px;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:all .18s ease-out;
+}
+.tool-pill span.icon{
+    width:16px;height:16px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:999px;
+    background:rgba(248,250,252,0.08);
+    font-size:11px;
+}
+.tool-pill.active{
+    background:linear-gradient(90deg,#f59e0b,#f97316);
+    color:#111827;
+    border-color:rgba(251,191,36,0.85);
+    box-shadow:0 0 0 1px rgba(15,23,42,0.35);
+}
+
+/* Grid of cards */
+.grid{
+    margin-top:16px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:18px;
+}
+.card{
+    background:radial-gradient(circle at top left,rgba(255,255,255,0.98),rgba(226,232,240,0.96));
+    padding:16px 18px 14px;
+    border-radius:16px;
+    box-shadow:0 14px 35px rgba(15,23,42,0.45);
+    border:1px solid rgba(148,163,184,0.6);
+    position:relative;
+    overflow:hidden;
+}
+.card::before{
+    content:"";
+    position:absolute;
+    inset:-40%;
+    background:radial-gradient(circle at top,var(--gold) 0,transparent 45%);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease-out;
+}
+.card:hover::before{
+    opacity:0.18;
+}
+.card h2{
+    margin:0 0 4px;
+    font-size:17px;
+    color:#0b1120;
+}
+.card-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    color:var(--text-muted);
+    margin-bottom:8px;
+}
+.card p{
+    margin:0 0 10px;
+    color:#4b5563;
+    font-size:13px;
+}
+.card-meta{
+    font-size:11px;
+    color:#6b7280;
+    margin-bottom:6px;
+}
+
+/* Inputs */
+textarea,input,select{
+    width:100%;
+    padding:7px 10px;
+    border:1px solid var(--border-soft);
+    border-radius:9px;
+    margin-top:5px;
+    font-size:13px;
+    font-family:inherit;
+    background:#f9fafb;
+    transition:border .15s ease, box-shadow .15s ease, background .15s ease;
+}
+textarea{min-height:70px;resize:vertical;}
+textarea:focus,input:focus,select:focus{
+    outline:none;
+    border-color:var(--navy);
+    box-shadow:0 0 0 1px rgba(37,99,235,0.25);
+    background:#ffffff;
+}
+
+/* Buttons */
+.btn{
+    margin-top:10px;
+    background:linear-gradient(90deg,#f59e0b,#f97316);
+    color:#111827;
+    border:none;
+    padding:8px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:600;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    box-shadow:0 10px 20px rgba(251,191,36,0.45);
+    transition:transform .12s ease-out, box-shadow .12s ease-out;
+}
+.btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 12px 24px rgba(251,191,36,0.7);
+}
+.btn:active{
+    transform:translateY(0);
+    box-shadow:0 6px 14px rgba(251,191,36,0.55);
+}
+.btn span.dot{
+    width:6px;height:6px;
+    border-radius:50%;
+    background:#111827;
+}
+
+/* Output areas */
+.output{
+    margin-top:10px;
+    background:#0b1220;
+    padding:10px 11px 8px;
+    border-radius:12px;
+    min-height:42px;
+    white-space:pre-wrap;
+    color:#e5e7eb;
+    font-size:13px;
+    border:1px solid rgba(148,163,184,0.7);
+    box-shadow:inset 0 0 0 1px rgba(15,23,42,0.8);
+    position:relative;
+}
+.output::before{
+    content:"AI response";
+    position:absolute;
+    top:6px;right:10px;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:#6b7280;
+}
+.output.loading{
+    color:#9ca3af;
+    font-style:italic;
+}
+.output.error{
+    border-color:#fecaca;
+    background:#7f1d1d;
+    color:#fee2e2;
+}
+
+/* small status text */
+.status-line{
+    font-size:10px;
+    color:#6b7280;
+    margin-top:4px;
+}
+
+/* Typing indicator */
+.typing-dots{
+    display:inline-flex;
+    gap:4px;
+    align-items:center;
+}
+.typing-dots span{
+    width:5px;height:5px;
+    border-radius:50%;
+    background:#9ca3af;
+    animation:bounce 1s infinite ease-in-out;
+}
+.typing-dots span:nth-child(2){animation-delay:.15s;}
+.typing-dots span:nth-child(3){animation-delay:.3s;}
+@keyframes bounce{
+    0%,80%,100%{transform:translateY(0);}
+    40%{transform:translateY(-4px);}
+}
+
+/* Utility chips for suggestions */
+.chip-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:6px;
+}
+.chip{
+    font-size:11px;
+    padding:4px 9px;
+    border-radius:999px;
+    background:var(--chip-bg);
+    color:#064e3b;
+    cursor:pointer;
+    border:1px dashed rgba(45,212,191,0.7);
+}
+
+/* Responsive tweaks */
+@media (max-width:768px){
+    .navbar{padding:10px 18px;}
+    .nav-links{display:none;}
+    .hero-inner{padding:24px 18px 18px;}
+    .page-wrap{padding:0 16px 32px;}
+    .grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header class="navbar">
+    <div class="logo">Gujarat <span>Tourism</span></div>
+    <ul class="nav-links">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+        <li><a href="{% url 'festivals' %}">Festivals</a></li>
+        <li><a href="{% url 'heritage' %}">Heritage</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+</header>
+
+<div class="page-wrap">
+
+    <!-- HERO -->
+    <section class="hero-shell">
+        <div class="hero-bg"></div>
+        <div class="hero-inner">
+            <div class="hero-main">
+                <div class="hero-kicker">AI Assistant · Gujarat Only</div>
+                <h1 class="hero-title">AI Experience Center</h1>
+                <p class="hero-text">
+                    Plan trips, ask cultural questions, translate content, and generate posters —
+                    all tuned specially for <strong>Gujarat Tourism</strong>.
+                </p>
+                <div class="hero-tags">
+                    <div class="hero-tag"><span class="hero-tag-dot"></span> Chatbot</div>
+                    <div class="hero-tag"><span class="hero-tag-dot"></span> Trip Planner</div>
+                    <div class="hero-tag"><span class="hero-tag-dot"></span> Translator</div>
+                    <div class="hero-tag"><span class="hero-tag-dot"></span> Posters & Guides</div>
+                </div>
+                <p class="hero-subnote">
+                    Tip: Ask detailed questions like “4-day Dwarka–Somnath–Gir plan under ₹20,000 for family”.
+                </p>
+            </div>
+
+            <aside class="hero-side">
+                <div class="hero-side-card">
+                    <div class="hero-side-header">
+                        <span>Live AI Demo</span>
+                        <span class="hero-pill">Powered by GUJARAT-TOURISM AI</span>
+                    </div>
+                    <div class="hero-chat">
+                        <strong>You:</strong> Best time to visit Rann of Kutch?<br><br>
+                        <strong>AI:</strong> November to February – clear skies, cool desert nights, and
+                        the full Rann Utsav experience with tents, folk music, and craft bazaars.
+                    </div>
+                    <div class="hero-chip-row">
+                        <span class="hero-chip">Family trip ideas</span>
+                        <span class="hero-chip">Temple circuits</span>
+                        <span class="hero-chip">Food trail</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Tool quick select -->
+    <div class="tool-row">
+        <button class="tool-pill active" data-target="chat">
+            <span class="icon">💬</span> Chatbot
+        </button>
+        <button class="tool-pill" data-target="trip">
+            <span class="icon">🗺</span> Trip Planner
+        </button>
+        <button class="tool-pill" data-target="translate">
+            <span class="icon">🔤</span> Translator
+        </button>
+        <button class="tool-pill" data-target="poster">
+            <span class="icon">🎨</span> Poster
+        </button>
+        <button class="tool-pill" data-target="food">
+            <span class="icon">🍽</span> Food & Stay
+        </button>
+        <button class="tool-pill" data-target="audio">
+            <span class="icon">🎧</span> Audio Guide
+        </button>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid">
+
+        <!-- CHATBOT -->
+        <div class="card" id="tool-chat">
+            <div class="card-label">Tool · 01</div>
+            <h2>AI Travel Chatbot</h2>
+            <p>Ask anything about Gujarat: best routes, seasons, history, local customs, or safety tips.</p>
+
+            <div class="chip-row">
+                <div class="chip" data-fill="chat_msg">Best 3-day itinerary for Dwarka & Somnath from Ahmedabad?</div>
+                <div class="chip" data-fill="chat_msg">Hidden heritage sites near Vadodara?</div>
+            </div>
+
+            <textarea id="chat_msg" placeholder="Example: Best time to visit Dwarka?"></textarea>
+            <button class="btn" onclick="askChat()">
+                <span class="dot"></span> Ask AI
+            </button>
+            <div id="chat_response" class="output"></div>
+            <div class="status-line">Answers are focused on Gujarat only.</div>
+        </div>
+
+        <!-- TRIP PLANNER -->
+        <div class="card" id="tool-trip">
+            <div class="card-label">Tool · 02</div>
+            <h2>AI Trip Planner</h2>
+            <p>Create a personalized, day-wise tour plan with distances and food suggestions.</p>
+
+            <p class="card-meta">Trip length (days)</p>
+            <input type="number" id="trip_days" value="3" min="1">
+
+            <p class="card-meta">Interests</p>
+            <textarea id="trip_interests" placeholder="temples, heritage, beaches, wildlife, local food"></textarea>
+
+            <p class="card-meta">Start city (optional)</p>
+            <input type="text" id="trip_start" placeholder="Ahmedabad / Vadodara / Rajkot / flexible">
+
+            <button class="btn" onclick="planTrip()">
+                <span class="dot"></span> Generate Plan
+            </button>
+            <div id="trip_response" class="output"></div>
+        </div>
+
+        <!-- TRANSLATOR -->
+        <div class="card" id="tool-translate">
+            <div class="card-label">Tool · 03</div>
+            <h2>Tourism Translator</h2>
+            <p>Translate descriptions and banners between Gujarati, Hindi and English.</p>
+
+            <textarea id="trans_text" placeholder="Type or paste tourism text here..."></textarea>
+            <p class="card-meta">Target language</p>
+            <select id="trans_lang">
+                <option value="gu">Gujarati</option>
+                <option value="hi">Hindi</option>
+                <option value="en">English</option>
+            </select>
+            <button class="btn" onclick="translateText()">
+                <span class="dot"></span> Translate
+            </button>
+            <div id="trans_response" class="output"></div>
+        </div>
+
+        <!-- POSTER -->
+        <div class="card" id="tool-poster">
+            <div class="card-label">Tool · 04</div>
+            <h2>Poster Caption Generator</h2>
+            <p>Generate catchy lines and AI-image prompts for tourism campaigns.</p>
+
+            <p class="card-meta">Theme</p>
+            <input type="text" id="poster_theme" placeholder="Navratri in Gujarat / Rann Utsav under moonlight">
+
+            <p class="card-meta">Place</p>
+            <input type="text" id="poster_place" placeholder="Kutch, Somnath, Dwarka, Saputara...">
+
+            <p class="card-meta">Occasion</p>
+            <input type="text" id="poster_occasion" placeholder="Festival, Long weekend, Monsoon offer">
+
+            <button class="btn" onclick="generatePoster()">
+                <span class="dot"></span> Generate Caption
+            </button>
+            <div id="poster_response" class="output"></div>
+        </div>
+
+        <!-- FOOD GUIDE -->
+        <div class="card" id="tool-food">
+            <div class="card-label">Tool · 05</div>
+            <h2>Food & Stay Guide</h2>
+            <p>Get local dishes to try and recommended areas to stay in any Gujarat city.</p>
+
+            <p class="card-meta">City / Region</p>
+            <input type="text" id="rec_city" placeholder="Ahmedabad / Surat / Kutch / Gir / Saputara">
+
+            <p class="card-meta">Budget</p>
+            <input type="text" id="rec_budget" placeholder="e.g. ₹2500–₹5000 per night / luxury">
+
+            <p class="card-meta">Travel style</p>
+            <input type="text" id="rec_style" placeholder="family, couple, solo, backpacker...">
+
+            <button class="btn" onclick="getRecommendations()">
+                <span class="dot"></span> Get Guide
+            </button>
+            <div id="rec_response" class="output"></div>
+        </div>
+
+        <!-- AUDIO GUIDE -->
+        <div class="card" id="tool-audio">
+            <div class="card-label">Tool · 06</div>
+            <h2>Audio Guide Script</h2>
+            <p>Create narration text for QR-based audio guides at temples and forts.</p>
+
+            <p class="card-meta">Place / Monument</p>
+            <input type="text" id="audio_place" placeholder="Rani Ki Vav, Dholavira, Modhera Sun Temple">
+
+            <p class="card-meta">Length</p>
+            <select id="audio_length">
+                <option value="short">Short (~1 min)</option>
+                <option value="medium">Medium (~3 min)</option>
+                <option value="long">Long (~5 min)</option>
+            </select>
+
+            <button class="btn" onclick="generateAudioScript()">
+                <span class="dot"></span> Generate Script
+            </button>
+            <div id="audio_response" class="output"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// CSRF helper
+function csrf(){
+    const name="csrftoken=";
+    return document.cookie.split(";").map(c=>c.trim())
+      .find(c=>c.startsWith(name))?.substring(name.length) || "";
+}
+
+async function api(url, data){
+    const res = await fetch(url, {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "X-CSRFToken": csrf()
+        },
+        body:JSON.stringify(data || {})
+    });
+    return res.json();
+}
+
+// Utility: show loading typing indicator
+function setLoading(el, isLoading){
+    if(!el) return;
+    el.classList.remove("error");
+    if(isLoading){
+        el.classList.add("loading");
+        el.innerHTML = '<span class="typing-dots"><span></span><span></span><span></span></span> Thinking...';
+    }else{
+        el.classList.remove("loading");
+    }
+}
+function setError(el, msg){
+    if(!el) return;
+    el.classList.remove("loading");
+    el.classList.add("error");
+    el.textContent = msg || "Something went wrong.";
+}
+
+/* CHATBOT */
+async function askChat(){
+    const out=document.getElementById("chat_response");
+    const message=document.getElementById("chat_msg").value.trim();
+    if(!message){ out.textContent="Please type a question."; return; }
+    setLoading(out,true);
+    try{
+        const r = await api("/api/ai/chat/", {message});
+        setLoading(out,false);
+        out.textContent = r.reply || r.text || r.error || "No response from AI.";
+        if(r.error) out.classList.add("error");
+    }catch(e){
+        setError(out,"Network / server error: "+e);
+    }
+}
+
+/* TRIP */
+async function planTrip(){
+    const out=document.getElementById("trip_response");
+    const days=document.getElementById("trip_days").value;
+    const interests=document.getElementById("trip_interests").value.trim();
+    const start_city=document.getElementById("trip_start").value.trim();
+    if(!days || !interests){
+        out.textContent="Please enter days and interests.";
+        return;
+    }
+    setLoading(out,true);
+    try{
+        const r = await api("/api/ai/trip-plan/", {days,interests,start_city});
+        setLoading(out,false);
+        out.textContent = r.itinerary || r.text || r.error || "No response from AI.";
+        if(r.error) out.classList.add("error");
+    }catch(e){
+        setError(out,"Network / server error: "+e);
+    }
+}
+
+/* TRANSLATE */
+async function translateText(){
+    const out=document.getElementById("trans_response");
+    const text=document.getElementById("trans_text").value.trim();
+    const target=document.getElementById("trans_lang").value;
+    if(!text){ out.textContent="Please enter some text."; return; }
+    setLoading(out,true);
+    try{
+        const r = await api("/api/ai/translate/", {text,target});
+        setLoading(out,false);
+        out.textContent = r.translated || r.text || r.error || "No response from AI.";
+        if(r.error) out.classList.add("error");
+    }catch(e){
+        setError(out,"Network / server error: "+e);
+    }
+}
+
+/* POSTER */
+async function generatePoster(){
+    const out=document.getElementById("poster_response");
+    const theme=document.getElementById("poster_theme").value.trim();
+    const place=document.getElementById("poster_place").value.trim();
+    const occasion=document.getElementById("poster_occasion").value.trim();
+    setLoading(out,true);
+    try{
+        const r = await api("/api/ai/poster/", {theme,place,occasion});
+        setLoading(out,false);
+        out.textContent = r.poster_text || r.text || r.error || "No response from AI.";
+        if(r.error) out.classList.add("error");
+    }catch(e){
+        setError(out,"Network / server error: "+e);
+    }
+}
+
+/* FOOD GUIDE */
+async function getRecommendations(){
+    const out=document.getElementById("rec_response");
+    const city=document.getElementById("rec_city").value.trim();
+    const budget=document.getElementById("rec_budget").value.trim();
+    const style=document.getElementById("rec_style").value.trim();
+    if(!city){ out.textContent="Please enter a city or region."; return; }
+    setLoading(out,true);
+    try{
+        const r = await api("/api/ai/recommend/", {city,budget,style});
+        setLoading(out,false);
+        out.textContent = r.recommendations || r.text || r.error || "No response from AI.";
+        if(r.error) out.classList.add("error");
+    }catch(e){
+        setError(out,"Network / server error: "+e);
+    }
+}
+
+/* AUDIO GUIDE */
+async function generateAudioScript(){
+    const out=document.getElementById("audio_response");
+    const place=document.getElementById("audio_place").value.trim();
+    const duration=document.getElementById("audio_length").value;
+    if(!place){ out.textContent="Please enter a place or monument."; return; }
+    setLoading(out,true);
+    try{
+        const r = await api("/api/ai/audio-guide/", {place,duration});
+        setLoading(out,false);
+        out.textContent = r.script || r.text || r.error || "No response from AI.";
+        if(r.error) out.classList.add("error");
+    }catch(e){
+        setError(out,"Network / server error: "+e);
+    }
+}
+
+/* Tool pill scroll */
+document.querySelectorAll(".tool-pill").forEach(pill=>{
+    pill.addEventListener("click",()=>{
+        document.querySelectorAll(".tool-pill").forEach(x=>x.classList.remove("active"));
+        pill.classList.add("active");
+        const targetId="tool-"+pill.dataset.target;
+        const el=document.getElementById(targetId);
+        if(el){
+            const top=el.getBoundingClientRect().top + window.scrollY - 90;
+            window.scrollTo({top,behavior:"smooth"});
+        }
+    });
+});
+
+/* Chips that auto-fill textareas */
+document.querySelectorAll(".chip").forEach(ch=>{
+    ch.addEventListener("click",()=>{
+        const targetId = ch.dataset.fill;
+        const inp = document.getElementById(targetId);
+        if(inp){
+            inp.value = ch.textContent.trim();
+            inp.focus();
+        }
+    });
+});
+</script>
+</body>
+</html>

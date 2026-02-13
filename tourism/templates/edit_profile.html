@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile - Gujarat Tourism</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("{% static 'images/bg2.png' %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Navbar styles */
+    .page-overlay { display: none; }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 50px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar .logo { font-size: 24px; font-weight: bold; }
+    .navbar .logo span { color: #d4af37; }
+    .nav-links { list-style: none; display: flex; gap: 20px; }
+    .nav-links li a { text-decoration: none; color: #fff; font-weight: 500; }
+    .nav-links li a.active { color: #d4af37; }
+    .search-box input { padding: 5px; border-radius: 5px; border: none; }
+    .search-box button { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; background: #d4af37; color: #fff; }
+
+    /* Container & form */
+    .container {
+      width: 500px;
+      max-width: 95%;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h2 { text-align: center; color: #d4af37; margin-bottom: 20px; }
+
+    label { display: block; margin: 12px 0 5px; font-weight: bold; color: #333; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      background: #d4af37;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 8px 15px;
+      background: #444;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .profile-pic {
+      display: block;
+      margin: 0 auto 15px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #d4af37;
+    }
+
+    .error { color: red; font-size: 13px; margin-bottom: 10px; }
+    .success { color: green; font-size: 14px; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="page-overlay"></div>
+  <header class="navbar">
+      <div class="logo">Gujarat <span>Tourism</span></div>
+      <ul class="nav-links">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+          <li><a href="{% url 'heritage' %}">Heritage</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+      <div class="search-box">
+          <form method="GET" action="{% url 'search-destination' %}">
+              <input type="text" name="q" placeholder="Search..." required>
+              <button type="submit">Search</button>
+          </form>
+      </div>
+  </header>
+
+  <!-- Edit Profile Container -->
+  <div class="container">
+    <h2>Edit Profile</h2>
+
+    <!-- Back Button -->
+    <a href="{% url 'profile' %}" class="back-btn">← Back</a>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p class="{{ message.tags }}">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+
+    <!-- FORM WITH FILE UPLOAD -->
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- Show current profile picture -->
+      {% if user.profile.profile_pic %}
+        <img src="{{ user.profile.profile_pic.url }}" class="profile-pic">
+      {% else %}
+        <img src="{% static 'images/default.png' %}" class="profile-pic">
+      {% endif %}
+
+      <!-- Upload New Picture -->
+      <label>Profile Picture</label>
+      <input type="file" name="profile_pic">
+
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" value="{{ user.username }}" required>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" value="{{ user.email }}" required>
+
+      <label for="first_name">First Name</label>
+      <input type="text" name="first_name" id="first_name" value="{{ user.first_name }}">
+
+      <label for="last_name">Last Name</label>
+      <input type="text" name="last_name" id="last_name" value="{{ user.last_name }}">
+
+      <label for="password">Password (leave blank to keep current)</label>
+      <input type="password" name="password" id="password">
+
+      <button type="submit" class="btn">Update Profile</button>
+    </form>
+  </div>
+</body>
+</html>

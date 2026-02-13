@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ destination.name }} - Details</title>
+  <link rel="stylesheet" href="{% static 'style/style.css' %}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('{{ destination.image.url }}') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .destination-detail {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      max-width: 90%;
+      margin: 80px auto;
+      padding: 30px;
+      border-radius: 20px;
+      color: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .destination-detail img {
+      max-width: 500px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .detail-text {
+      max-width: 500px;
+    }
+
+    .detail-text h1 {
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+
+    .detail-text p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background-color: #ffd700;
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Gujarat <span>Tourism</span></div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/destinations-static/">Destinations</a></li>
+    </ul>
+  </header>
+
+  <!-- Detail Content -->
+  <section class="destination-detail">
+    <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
+    <div class="detail-text">
+      <h1>{{ destination.name }}</h1>
+      <p>{{ destination.description }}</p>
+      <div class="btn-group">
+        <a href="/destinations-static/" class="btn">Back to Destinations</a>
+        <a href="{% url 'book-tour' destination.pk %}" class="btn">Book Tour</a>
+        <a href="{% url 'view-package' destination.pk %}" class="btn">View Package</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

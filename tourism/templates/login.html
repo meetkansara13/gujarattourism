@@ -1,0 +1,54 @@
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'style/login.css' %}">
+
+<div class="hero-text">
+    <h1 id="dynamic-text"></h1>
+</div>
+
+<div class="auth-container">
+    <h2>Login to Your Account</h2>
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        <label for="username">Username or Email</label>
+        <input type="text" name="username" id="username" placeholder="Enter username or email" required>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="Enter password" required>
+
+        <button type="submit" class="auth-btn">Login</button>
+    </form>
+    <p class="auth-link"><a href="{% url 'forgot_password' %}">Forgot Password?</a></p>
+    <p class="auth-link">Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+</div>
+
+<script>
+    // Typing animation text list
+    const texts = ["Welcome", "to the Official Website", "of Gujarat Tourism"];
+    let count = 0;
+    let index = 0;
+    let currentText = "";
+    let letter = "";
+
+    function typeEffect() {
+        if (count === texts.length) {
+            count = 0; // restart after last text
+        }
+        currentText = texts[count];
+        letter = currentText.slice(0, ++index);
+
+        document.getElementById("dynamic-text").textContent = letter;
+
+        if (letter.length === currentText.length) {
+            count++;
+            index = 0;
+            setTimeout(typeEffect, 1500); // pause before next word
+        } else {
+            setTimeout(typeEffect, 120); // typing speed
+        }
+    }
+
+    typeEffect();
+</script>
+{% endblock %}

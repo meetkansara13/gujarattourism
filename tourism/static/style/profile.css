@@ -1,0 +1,188 @@
+/* ----------------------------------------------------
+   GLOBAL STYLING
+---------------------------------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: #f4f7fa;
+    color: #222;
+}
+
+/* ----------------------------------------------------
+   HERO SECTION
+---------------------------------------------------- */
+.hero {
+    width: 100%;
+    height: 38vh;
+    background: url('/static/images/gujarat-hero.jpg') center/cover no-repeat;
+    position: relative;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    z-index: 10;
+}
+
+.hero-content h1 {
+    font-size: 2.3rem;
+    letter-spacing: 1px;
+}
+
+/* ----------------------------------------------------
+   PROFILE CARD
+---------------------------------------------------- */
+.profile-card {
+    width: 90%;
+    max-width: 1100px;
+    margin: -80px auto 30px auto;
+    background: #fff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ffb400;
+}
+
+.profile-info h2 {
+    font-size: 1.8rem;
+}
+
+.profile-info p {
+    margin-top: 4px;
+    color: #555;
+}
+
+/* ----------------------------------------------------
+   PROFILE NAVIGATION TABS
+---------------------------------------------------- */
+.profile-tabs {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+    display: flex;
+    gap: 15px;
+}
+
+.profile-tabs button {
+    flex: 1;
+    padding: 12px 0;
+    background: #eee;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.profile-tabs button.active {
+    background: #ffb400;
+    color: #fff;
+}
+
+/* ----------------------------------------------------
+   CONTENT SECTIONS
+---------------------------------------------------- */
+.section {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* ----------------------------------------------------
+   BOOKING LIST
+---------------------------------------------------- */
+.booking-card {
+    padding: 18px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.booking-card:hover {
+    border-color: #ffb400;
+    transform: translateY(-2px);
+}
+
+/* ----------------------------------------------------
+   EDIT PROFILE FORM
+---------------------------------------------------- */
+.edit-form label {
+    font-weight: 600;
+}
+
+.edit-form input {
+    width: 100%;
+    margin: 6px 0 15px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.save-btn {
+    padding: 12px 25px;
+    background: #ffb400;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    background: #e6a000;
+}
+
+/* ----------------------------------------------------
+   RESPONSIVE
+---------------------------------------------------- */
+@media (max-width: 768px) {
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-tabs {
+        flex-direction: column;
+    }
+}

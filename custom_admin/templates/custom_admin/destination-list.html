@@ -1,0 +1,22 @@
+{% extends 'custom_admin/base.html' %}
+{% block content %}
+<h1>Destinations</h1>
+<a href="{% url 'destination_add' %}" class="addlink">Add Destination</a>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Short Description</th>
+        <th>Actions</th>
+    </tr>
+    {% for dest in destinations %}
+    <tr>
+        <td>{{ dest.name }}</td>
+        <td>{{ dest.short_description }}</td>
+        <td>
+            <a href="{% url 'destination_edit' dest.id %}" class="changelink">Edit</a>
+            <a href="{% url 'destination_delete' dest.id %}" class="deletelink">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

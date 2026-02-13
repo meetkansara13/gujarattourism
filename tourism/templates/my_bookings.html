@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookings - Gujarat Tourism</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("{% static 'images/bg2.png' %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Navbar styles */
+    .page-overlay { display: none; }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 50px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar .logo { font-size: 24px; font-weight: bold; }
+    .navbar .logo span { color: #d4af37; }
+    .nav-links { list-style: none; display: flex; gap: 20px; }
+    .nav-links li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+    }
+    .nav-links li a.active { color: #d4af37; }
+    .search-box input { padding: 5px; border-radius: 5px; border: none; }
+    .search-box button { padding: 5px 10px; border: none; border-radius: 5px; cursor: pointer; background: #d4af37; color: #fff; }
+
+    /* Container & table styles */
+    .container {
+      width: 95%;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h2 { text-align: center; color: #d4af37; margin-bottom: 10px; }
+    .total-bookings { text-align: center; font-size: 18px; margin-bottom: 20px; color: #444; }
+
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 15px;
+      padding: 8px 15px;
+      background: #d4af37;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    table { width: 100%; border-collapse: collapse; border-radius: 10px; overflow: hidden; }
+    th, td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #ddd; color: #222; }
+    th { background: #d4af37; color: white; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    tr:hover { background: #f1f1f1; }
+
+    .status { font-weight: bold; }
+    .status.confirmed { color: green; }
+    .status.cancelled { color: red; }
+    .status.pending { color: orange; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="page-overlay"></div>
+  <header class="navbar">
+      <div class="logo">Gujarat <span>Tourism</span></div>
+      <ul class="nav-links">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+          <li><a href="{% url 'heritage' %}">Heritage</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+      <div class="search-box">
+          <form method="GET" action="{% url 'search-destination' %}">
+              <input type="text" name="q" placeholder="Search..." required>
+              <button type="submit">Search</button>
+          </form>
+      </div>
+  </header>
+
+  <!-- Bookings Container -->
+  <div class="container">
+    <h2>My Bookings</h2>
+    <p class="total-bookings">Total Bookings: {{ total_bookings }}</p>
+
+    <!-- Back Button -->
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Destination</th>
+          <th>Travel Date</th>
+          <th>Persons</th>
+          <th>Booked At</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if bookings %}
+          {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.destination }}</td>
+            <td>{{ booking.travel_date|date:"M d, Y" }}</td>
+            <td>{{ booking.number_of_people }}</td>
+            <td>{{ booking.created_at|date:"M d, Y, h:i A" }}</td>
+            <td class="status {{ booking.status }}">{{ booking.status|title }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="5">You have no bookings yet.</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

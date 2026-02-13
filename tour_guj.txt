@@ -1,0 +1,114 @@
+gujarat1303
+uname:gtour
+email:gtour11@gmail.com
+
+---------------------------------
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ destination.name }} - Details | Gujarat Tourism</title>
+  <link rel="stylesheet" href="{% static 'style/style.css' %}">
+  <style>
+    body {
+      background: url("{% static 'images/rann.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      margin: 0;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      min-height: 100vh;
+    }
+
+    .destination-detail {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    .destination-image {
+      float: left;
+      width: 45%;
+      margin-right: 5%;
+    }
+
+    .destination-image img {
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    .destination-content {
+      overflow: hidden;
+    }
+
+    .destination-content h1 {
+      font-size: 36px;
+      color: #ffd700;
+      margin-top: 0;
+    }
+
+    .destination-content p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .btn-group {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn-group a {
+  background: #ffd700;
+  color: #000;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-group a:hover {
+  background: #fff;
+  color: #000;
+}
+
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="destination-detail">
+      <div class="destination-image">
+        <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
+      </div>
+      <div class="destination-content">
+        <h1>{{ destination.name }}</h1>
+        <p><strong>About:</strong> {{ destination.description }}</p>
+
+        <p><strong>Tour Duration:</strong> 3 Days / 2 Nights</p>
+        <p><strong>Highlights:</strong> Temple Visit, Bet Dwarka, Local Culture, Shopping</p>
+        <p><strong>Includes:</strong> Stay + Meals + Local Travel</p>
+
+        <div class="btn-group">
+          <a href="{% url 'destination-list' %}">Back to Destinations</a>
+          <a href="#">Book Tour</a>
+          <a href="#">View Package</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

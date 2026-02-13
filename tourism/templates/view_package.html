@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Package for {{ destination.name }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Poppins', sans-serif;
+      background: url("{% static 'images/bg2.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .package-container {
+      width: 90%;
+      max-width: 800px;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .package-container h1 {
+      font-size: 32px;
+      color: #ffd700;
+      margin-bottom: 25px;
+    }
+
+    .package-container img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+
+    .package-container p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .package-container ul {
+      text-align: left;
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .package-container ul li {
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      background: #ffd700;
+      color: black;
+      padding: 12px 20px;
+      margin: 8px 5px;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 10px;
+      display: inline-block;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #e6c200;
+    }
+  </style>
+</head>
+<body>
+  <div class="package-container">
+    <h1>Package for {{ destination.name }}</h1>
+    <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
+    <p>{{ destination.description }}</p>
+    <ul>
+      <li>3 Days, 2 Nights stay</li>
+      <li>Guided tour & local transport</li>
+      <li>All entry fees included</li>
+    </ul>
+    <a href="{% url 'book-tour' destination.pk %}" class="btn">Book This Package</a>
+    <a href="{% url 'destinations-static' %}" class="btn">← Back to Destinations</a>
+  </div>
+</body>
+</html>

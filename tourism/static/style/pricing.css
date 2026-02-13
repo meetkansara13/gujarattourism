@@ -1,0 +1,125 @@
+/* Hero section */
+.hero {
+    height: 350px;
+    background: url('../images/pricing-bg.jpg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    background: rgba(0,0,0,0.5);
+    padding: 50px;
+    border-radius: 12px;
+    text-align: center;
+    color: #fff;
+}
+
+.hero-overlay h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.hero-overlay p {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+}
+
+/* Cards Grid */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 40px 50px;
+}
+
+/* Card */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.card:hover img {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.card h3 {
+    margin: 12px 15px 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    font-family: 'Playfair Display', serif;
+}
+
+.card p {
+    margin: 0 15px 10px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    font-family: 'Inter', sans-serif;
+}
+
+.card .price {
+    margin: 0 15px 10px;
+    font-size: 14px;
+    color: #ff6b00;
+    font-weight: 600;
+}
+
+.card a {
+    display: block;
+    margin: 10px 15px 15px;
+    padding: 10px;
+    text-align: center;
+    background: #ffb400;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s, transform 0.3s;
+    font-weight: 600;
+}
+
+.card a:hover {
+    background: #e69a00;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    background: #222;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-overlay {
+        padding: 30px;
+    }
+
+    .hero-overlay h1 {
+        font-size: 28px;
+    }
+}

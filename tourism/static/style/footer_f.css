@@ -1,0 +1,68 @@
+/* ---------- GLOBAL DYNAMIC PREMIUM STYLES ----------- */
+
+.section-hero {
+    width: 100%;
+    padding: 80px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #0f4c81, #07375f 60%, #0f4c81);
+    color: #fff;
+    border-bottom: 3px solid #ffb400;
+}
+
+.section-hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.section-hero p {
+    font-size: 18px;
+    opacity: .9;
+    max-width: 800px;
+    margin: auto;
+}
+
+.premium-container {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.premium-card {
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(8px);
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    border-left: 5px solid #ffb400;
+}
+
+.premium-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+}
+
+.premium-card h2 {
+    font-size: 26px;
+    color: #0f4c81;
+    margin-bottom: 10px;
+}
+
+.premium-card p {
+    font-size: 16px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}

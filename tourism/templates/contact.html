@@ -1,0 +1,459 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact – Gujarat Tourism</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+/* -----------------------------------------
+   GLOBAL STYLES
+------------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: url("{% static 'images/rw.jpg' %}") no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  scroll-behavior: smooth;
+}
+
+/* -----------------------------------------
+   NAVBAR
+------------------------------------------*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 10, 0.55);
+  backdrop-filter: blur(12px);
+  padding: 18px 50px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1px solid rgba(255,255,255,0.13);
+}
+
+.logo {
+  font-size: 32px;
+  color: #ffcc33;
+  font-weight: 800;
+}
+
+.logo span {
+  color: white;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+}
+
+.nav-links li a {
+  color: #EFEFEF;
+  font-size: 15px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ffcc33;
+  text-shadow: 0 0 10px rgba(255,204,51,0.7);
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(12px);
+  list-style: none;
+  padding: 10px 0;
+  min-width: 200px;
+  border-radius: 10px;
+  top: 100%;
+}
+
+.dropdown-menu li {
+  padding: 12px 20px;
+}
+
+.dropdown-menu li a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  color: #ffcc33;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* -----------------------------------------
+   HERO SECTION
+------------------------------------------*/
+.hero {
+  height: 35vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("{% static 'images/contt.jpeg' %}") center/cover;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+.hero h1 {
+  position: relative;
+  font-size: 64px;
+  color: #ffcc33;
+  font-weight: 800;
+  text-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+/* -----------------------------------------
+   CONTACT SECTION
+------------------------------------------*/
+.contact-container {
+  max-width: 1200px;
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  padding: 0 30px;
+}
+
+/* Left info card */
+.info-card {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  padding: 30px;
+  border-radius: 18px;
+  color: #010101;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  animation: fadeUp 0.6s ease;
+}
+
+.info-card h2 {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #ffcc33;
+}
+
+.info-card ul li {
+  list-style: none;
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Right form */
+.contact-form {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  padding: 32px;
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  color: #000;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  animation: fadeUp 0.7s ease;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 10px rgba(37,99,235,0.3);
+}
+
+.contact-form button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 14px;
+  background: linear-gradient(90deg, #1e40af, #2563eb);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.contact-form button:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+}
+
+/* -----------------------------------------
+   MAP
+------------------------------------------*/
+.map {
+  margin-top: 60px;
+  width: 100%;
+}
+
+.map iframe {
+  width: 100%;
+  height: 380px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* -----------------------------------------
+   FOOTER (Premium Black + Gold)
+------------------------------------------*/
+.footer {
+  background: #0f0f0f;
+  color: #dcdcdc;
+  margin-top: 60px;
+  padding-top: 40px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 35px;
+  padding: 40px 10%;
+}
+
+.footer-section h4 {
+  color: #ffb300;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.footer-section ul li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #ccc;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #ffb300;
+  padding-left: 5px;
+}
+
+.social-icons a {
+  color: white;
+  margin: 0 12px;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #ffb300;
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  background: #0a0a0a;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+/* -----------------------------------------
+   ANIMATIONS
+------------------------------------------*/
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* -----------------------------------------
+   RESPONSIVE
+------------------------------------------*/
+@media (max-width: 850px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+}
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">Gujarat <span>Tourism</span></div>
+
+  <ul class="nav-links">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+    <li><a href="{% url 'festivals' %}">Festivals</a></li>
+    <li><a href="{% url 'contact' %}">Contact</a></li>
+
+    {% if user.is_authenticated %}
+      {% if user.is_staff %}
+      <li class="dropdown">
+        <a href="#">Admin ▼</a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'manage_bookings' %}">Manage Bookings</a></li>
+          <li><a href="{% url 'manage_users' %}">Manage Users</a></li>
+          <li><a href="{% url 'manage_tours' %}">Manage Tours</a></li>
+        </ul>
+      </li>
+      {% endif %}
+
+      <li><a href="{% url 'profile' %}">Profile</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+
+    {% else %}
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'signup' %}">Sign Up</a></li>
+    {% endif %}
+  </ul>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Contact Us</h1>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="contact-container">
+
+  <!-- LEFT INFO -->
+  <div class="info-card">
+    <h2>Get in Touch</h2>
+    <ul>
+      <li><strong>📍 Address:</strong> Gujarat Tourism Office, Udyog Bhavan, Gandhinagar</li>
+      <li><strong>📞 Phone:</strong> +91 79 23977200</li>
+      <li><strong>📧 Email:</strong> knowgujinfo@gmail.com</li>
+      <li><strong>⏰ Office Hours:</strong> Mon – Sat, 10 AM – 6 PM</li>
+    </ul>
+  </div>
+
+  <!-- RIGHT FORM -->
+  <div class="contact-form">
+    <h2>Send a Message</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="text" name="subject" placeholder="Subject" required>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+
+    {% if messages %}
+      {% for msg in messages %}
+      <p style="color: green; margin-top:10px;">{{ msg }}</p>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+</section>
+
+<!-- MAP -->
+<div class="map">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.2418052680306!2d72.627014375042!3d23.072004114141896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395c2b3d8e1ab91b%3A0xe2dc71e178ad6a0d!2sGujarat%20Tourism%20Office!5e0!3m2!1sen!2sin!4v1700000000000"></iframe>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <div class="footer-section">
+      <h4>CONTACT</h4>
+      <p>Gandhinagar, Gujarat</p>
+      <p>+91 98765 43210</p>
+      <p>support@gujarattourism.com</p>
+    </div>
+
+    <div class="footer-section">
+      <h4>EXPLORE</h4>
+      <ul>
+        <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+        <li><a href="{% url 'festivals' %}">Festivals</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Packages</a></li>
+      </ul>
+    </div>
+
+    <!-- Company -->
+      <div class="footer-section">
+        <h4>COMPANY</h4>
+        <ul>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'our_team' %}">Our Team</a></li>
+          <li><a href="{% url 'careers' %}">Careers</a></li>
+          <li><a href="{% url 'press' %}">Press</a></li>
+        </ul>
+      </div>
+
+      <!-- Help Center -->
+      <div class="footer-section">
+        <h4>HELP CENTER</h4>
+        <ul>
+          <li><a href="{% url 'faqs' %}">FAQs</a></li>
+          <li><a href="{% url 'support' %}">Support</a></li>
+          <li><a href="{% url 'terms' %}">Terms & Conditions</a></li>
+          <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <div class="social-icons">
+      <a href="#">🌐</a>
+      <a href="#">📸</a>
+      <a href="#">▶️</a>
+      <a href="#">🐦</a>
+    </div>
+
+    <p>&copy; 2025 Gujarat Tourism. Designed with ❤️</p>
+  </div>
+
+</footer>
+
+</body>
+</html>

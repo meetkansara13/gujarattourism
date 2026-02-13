@@ -1,0 +1,555 @@
+/* ====== Hero improvements ====== */
+.hero {
+  position: relative;
+  min-height: 60vh;                  /* tall hero */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+/* keep overlay centered content */
+.hero .overlay {
+  max-width: 1100px;
+  text-align: center;
+  z-index: 2;
+  padding: 40px 20px;
+  background: rgba(0,0,0,0.35);      /* subtle dark overlay for readability */
+  border-radius: 12px;
+}
+
+/* hero text sizes */
+.hero h1 { font-size: 56px; line-height: 1.05; }
+.hero p  { max-width: 800px; margin: 18px auto; font-size: 18px; }
+
+/* ====== Card grid (responsive) ====== */
+.card-slider {
+  max-width: 1200px;                 /* central container */
+  margin: 40px auto 80px;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  align-items: start;
+  z-index: 3;
+}
+
+/* Unify .card styles for destinations */
+.card {
+  background: #ffffff;
+  color: #222;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(6,6,6,0.12);
+  transform-origin: center;
+  padding-bottom: 18px;
+  transition: transform 350ms cubic-bezier(.2,.9,.2,1), box-shadow 350ms;
+  will-change: transform, opacity;
+}
+
+/* Card image styling */
+.card img {
+  width: 100%;               /* Full width of card */
+  height: 250px;             /* Slightly taller for better visuals */
+  object-fit: cover;         /* Ensures image covers the area without distortion */
+  border-radius: 12px;       /* Matches modern card style */
+  display: block;
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth hover effect */
+}
+
+.card:hover img {
+  transform: scale(1.05);    /* Slight zoom on hover */
+  filter: brightness(1.1);    /* Slightly brighten on hover */
+}
+
+
+/* card text */
+.card h3 { margin: 14px 16px 6px; font-size: 20px; color: #222; }
+.card p  { margin: 0 16px 12px; color: #555; font-size: 14px; }
+
+/* button */
+.card a {
+  display:inline-block;
+  margin: 8px 16px 18px;
+  padding: 8px 16px;
+  background: #1f2937;
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+/* hover lift */
+.card:hover {
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 18px 45px rgba(6,6,6,0.18);
+}
+
+/* ====== Scroll animation states ====== */
+.card {
+  opacity: 0;
+  transform: translateY(30px) scale(.99); /* initial */
+}
+
+.card.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: transform 700ms cubic-bezier(.2,.9,.2,1), opacity 700ms;
+}
+
+/* small screen tweaks */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 36px; }
+  .card img { height: 160px; }
+  .card-slider { gap: 18px; padding: 0 14px; }
+}
+
+
+/* ================= Global Reset and Base Styles ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #ffc107; /* A vibrant gold */
+  --secondary-color: #333;
+  --text-light: #f8f9fa;
+  --text-dark: #212529;
+  --background-dark: rgba(0, 0, 0, 0.7);
+  --card-background: rgba(255, 255, 255, 0.9);
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background: url("../images/bg2.png") no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text-light);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ================= Navbar ================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--background-dark);
+  padding: 20px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--primary-color);
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: var(--text-light);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: var(--primary-color);
+}
+
+.search-box input {
+  padding: 8px 15px;
+  border-radius: 25px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-light);
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-box input:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ================= Hero Section ================= */
+.hero {
+  text-align: center;
+  padding: 120px 20px 60px;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--text-light);
+}
+
+.hero h1 {
+  font-size: clamp(40px, 8vw, 72px);
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  font-size: clamp(16px, 2vw, 20px);
+  opacity: 0.9;
+}
+
+.btn {
+  display: inline-block;
+  padding: 15px 35px;
+  background: var(--primary-color);
+  color: var(--text-dark);
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: #ffdb58;
+}
+
+/* ================= Cards Section ================= */
+.card-slider {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px 40px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px 20px;
+}
+
+.card {
+  background: var(--card-background);
+  border-radius: 12px;
+  overflow: hidden;
+  width: clamp(250px, 25vw, 300px);
+  text-align: center;
+  padding: 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.card-content {
+  padding: 20px 15px;
+}
+
+.card h3 {
+  font-size: 22px;
+  margin: 15px 0 10px;
+  color: var(--secondary-color);
+}
+
+.card p {
+  font-size: 15px;
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+}
+
+.card a {
+  display: inline-block;
+  padding: 10px 22px;
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.card a:hover {
+  background: #4a4a4a;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ================= Destination Banner ================= */
+.small-hero {
+  padding: 100px 20px;
+  text-align: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  margin-top: 60px;
+}
+
+.small-hero h2 {
+  font-size: clamp(30px, 6vw, 50px);
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.section-title {
+  font-size: 40px;
+  text-align: center;
+  color: var(--primary-color);
+  margin: 60px 0 20px;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}/* ================= Dropdown ================= */
+.dropdown {
+  position: relative;
+}
+
+.dropdown a {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.85);
+  list-style: none;
+  padding: 10px 0;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  border-radius: 5px;
+}
+
+.dropdown-menu li {
+  padding: 8px 15px;
+}
+
+.dropdown-menu li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.dropdown-menu li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* ================= Auth Section ================= */
+.auth-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: url('/static/images/bg.jpg') no-repeat center center/cover;
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  width: 350px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.btn-primary {
+  background: #e67e22;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #d35400;
+}
+
+/* ================= Contact Section ================= */
+.contact {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  padding: 3rem 1.5rem;
+}
+
+.contact-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.contact p {
+  margin-bottom: 1.5rem;
+}
+
+.contact ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.contact ul li {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.contact form {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.contact form label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.contact form input,
+.contact form textarea {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.contact form input:focus,
+.contact form textarea:focus {
+  border-color: #1e40af;
+  box-shadow: 0 0 5px rgba(30, 64, 175, 0.3);
+}
+
+.contact form button {
+  background-color: #1e40af;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact form button:hover {
+  background-color: #2563eb;
+}
+
+.contact .social {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+
+.contact .social a {
+  transition: color 0.3s;
+}
+
+/* ================= Scroll to Top ================= */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll Animations */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.scroll-animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#scrollTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 12px 16px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  transition: 0.3s ease-in-out;
+}
+
+#scrollTopBtn:hover {
+  background-color: #e68900;
+}
+
+/* ================= Responsive ================= */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-container {
+    padding: 0 1rem;
+  }
+
+  .grid {
+    display: block;
+  }
+}

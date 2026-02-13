@@ -1,0 +1,20 @@
+{% extends "custom_admin/base.html" %}
+
+{% block content %}
+<h2>Edit Booking</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <label for="status">Booking Status:</label>
+    <select name="status" id="status">
+        <option value="Pending" {% if booking.status == "Pending" %}selected{% endif %}>Pending</option>
+        <option value="Confirmed" {% if booking.status == "Confirmed" %}selected{% endif %}>Confirmed</option>
+        <option value="Cancelled" {% if booking.status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+    </select>
+
+    <br><br>
+    <button type="submit">Update Booking</button>
+</form>
+
+{% endblock %}

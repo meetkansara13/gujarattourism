@@ -1,0 +1,379 @@
+  {% load static %}
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      
+      <meta charset="UTF-8">
+      <title>Gujarat Tourism</title>
+      <link rel="stylesheet" href="{% static 'style/style.css' %}">
+      
+
+  </head>
+  <body>
+      <header class="navbar">
+          <div class="logo">Gujarat <span>Tourism</span></div>
+          <ul class="nav-links">
+              <li><a href="#">Home</a></li>
+              <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+              <li><a href="{% url 'festivals' %}">Festivals</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+              <li><a href="{% url 'ai_hub' %}">AI Assistant</a></li>
+
+          
+              {% if user.is_authenticated %}
+                  {% if user.is_staff %}
+                      <!-- Admin Dropdown -->
+                      <li class="dropdown">
+                          <a href="#">Admin ▼</a>
+                          <ul class="dropdown-menu">
+                              <li><a href="{% url 'manage_bookings' %}">Manage Bookings</a></li>
+                              <li><a href="{% url 'manage_users' %}">Manage Users</a></li>
+                              <li><a href="{% url 'manage_tours' %}">Manage Tours</a></li>
+                          </ul>
+                      </li>
+                  {% endif %}
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+                  <li><a href="{% url 'profile' %}">Profile</a></li>
+              {% else %}
+                  <li><a href="{% url 'login' %}">Login</a></li>
+                  <li><a href="{% url 'signup' %}">Sign Up</a></li>
+              
+              {% endif %}
+          </ul>
+          
+    <div class="search-box">
+      <style>
+          /* Search button styling */
+  .btn-search {
+      padding: 8px 16px;
+      background-color: #ffb400; /* site gold/yellow color */
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+  }
+
+  .btn-search:hover {
+      background-color: #e69a00; /* slightly darker on hover */
+  }
+
+      </style>
+      <form method="GET" action="{% url 'search-destination' %}">
+          <input type="text" name="q" placeholder="Search..." required>
+          <button type="submit" class="btn-search">Search</button>
+      </form>
+  </div>
+
+
+  </header>
+
+  <section class="hero">
+    <div class="overlay">
+      <h1>EXPLORE <span>GUJARAT</span></h1>
+      <p>From the white desert of Rann of Kutch to the sacred Somnath Temple — explore culture, heritage, and nature.</p>
+      <a href="{% url 'destinations-static' %}" class="btn">BOOK NOW</a>
+    </div>
+  </section>
+    <section class="card-slider">
+      <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <img src="{% static 'images/somnath.jpg' %}" alt="Somnath Temple">
+          <h3>Somnath</h3>
+          <p>Spiritual gateway to one of the 12 Jyotirlingas.</p>
+          <a href="#">Read More</a>
+      </div>
+
+      <div class="card active" data-aos="fade-up" data-aos-delay="300">
+          <img src="{% static 'images/dwarka.jpg' %}" alt="Dwarka">
+          <h3>Dwarka</h3>
+          <p>The city of Lord Krishna, a holy pilgrimage.</p>
+          <a href="#">Read More</a>
+      </div>
+
+      <div class="card" data-aos="fade-up" data-aos-delay="500">
+          <img src="{% static 'images/rk.jpg' %}" alt="Rann of Kutch">
+          <h3>Rann of Kutch</h3>
+          <p>The magical salt desert, culture & dance festivals.</p>
+          <a href="#">Read More</a>
+      </div>
+  </section>
+
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const cards = Array.from(document.querySelectorAll('.card'));
+    if (!cards.length) return;
+
+    // Intersection Observer options
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+
+        // Stagger based on index to create smooth flow
+        const idx = cards.indexOf(el);
+        const delay = (idx % 6) * 120; // stagger in groups of 6
+
+        setTimeout(() => {
+          el.classList.add('revealed');
+        }, delay);
+
+        obs.unobserve(el); // animate once
+      });
+    }, options);
+
+    // Observe each card
+    cards.forEach(c => observer.observe(c));
+
+    // Optional: re-run reveal if user resizes (keeps UX robust)
+    window.addEventListener('resize', () => {
+      // no-op; IntersectionObserver manages layout changes automatically
+    });
+  });
+  </script>
+
+
+<!-- Floating AI Assistant Button -->
+<!-- PREMIUM FLOATING AI ASSISTANT -->
+<style>
+    /* Container */
+    #ai-premium-btn {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #ffb400, #ff9900);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+        cursor: pointer;
+        z-index: 9999;
+        animation: aiPulse 3.5s ease-in-out infinite;
+        transition: 0.25s ease;
+    }
+
+    #ai-premium-btn:hover {
+        transform: scale(1.15) translateY(-5px);
+        box-shadow: 0 12px 35px rgba(0,0,0,0.45);
+    }
+
+    /* AI Ring Glow */
+    #ai-premium-btn::before {
+        content: "";
+        position: absolute;
+        width: 105px;
+        height: 105px;
+        border-radius: 50%;
+        background: radial-gradient(rgba(255, 183, 0, 0.25), transparent 70%);
+        animation: ringGlow 4s infinite;
+        z-index: -1;
+    }
+
+    /* AI Icon */
+    #ai-premium-btn img {
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+    }
+
+    /* Tooltip */
+    #ai-tooltip {
+        position: fixed;
+        bottom: 115px;
+        right: 35px;
+        background: rgba(15, 76, 129, 0.9);
+        padding: 10px 14px;
+        border-radius: 12px;
+        color: white;
+        font-size: 13px;
+        font-family: "Inter", sans-serif;
+        white-space: nowrap;
+        backdrop-filter: blur(9px);
+        box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        transform: translateY(15px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .25s ease, transform .25s ease;
+    }
+
+    #ai-premium-btn:hover + #ai-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Animations */
+    @keyframes aiPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.06); }
+    }
+
+    @keyframes ringGlow {
+        0% { transform: scale(0.9); opacity: .6; }
+        50% { transform: scale(1.1); opacity: 1; }
+        100% { transform: scale(0.9); opacity: .6; }
+    }
+</style>
+
+<div id="ai-premium-btn" onclick="window.location.href='{% url 'ai_hub' %}'">
+    <img src="{% static 'images/ai-icon.png' %}" alt="AI Assistant">
+</div>
+
+<div id="ai-tooltip">Ask Gujarat AI Guide</div>
+
+
+  </body>
+  <style>
+    /* Footer Styles */
+  .footer {
+      background: #1a1a1a;
+      color: #f1f1f1;
+      margin-top: 50px;
+      font-family: 'Segoe UI', sans-serif;
+  }
+
+  /* Footer Container */
+  .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      padding: 40px 10%;
+      border-bottom: 1px solid #333;
+  }
+
+  /* Each section */
+  .footer-section h4 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      color: #ff9800; /* Accent color */
+      font-weight: 600;
+  }
+
+  .footer-section p,
+  .footer-section ul {
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+  }
+
+  .footer-section ul li {
+      margin-bottom: 8px;
+  }
+
+  .footer-section ul li a {
+      text-decoration: none;
+      color: #ccc;
+      transition: 0.3s;
+  }
+
+  .footer-section ul li a:hover {
+      color: #ff9800;
+      padding-left: 5px;
+  }
+
+  /* Bottom bar */
+  .footer-bottom {
+      text-align: center;
+      padding: 15px 10px;
+      background: #111;
+      font-size: 13px;
+  }
+
+  /* Social Icons */
+  .social-icons {
+      margin-bottom: 10px;
+  }
+
+  .social-icons a {
+      color: #f1f1f1;
+      margin: 0 10px;
+      font-size: 18px;
+      transition: color 0.3s ease, transform 0.2s;
+  }
+
+  .social-icons a:hover {
+      color: #ff9800;
+      transform: scale(1.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+      .footer-container {
+          padding: 30px 5%;
+      }
+  }
+
+  </style>
+
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Contact -->
+      <div class="footer-section">
+        <h4>CONTACT</h4>
+        <p><i class="fas fa-map-marker-alt"></i> Gandhinagar, Gujarat, India</p>
+        <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+        <p><i class="fas fa-envelope"></i> support@gujarattourism.com</p>
+      </div>
+
+      <!-- Explore -->
+      <div class="footer-section">
+        <h4>EXPLORE</h4>
+        <ul>
+          <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+          <li><a href="{% url 'festivals' %}">Festivals</a></li>
+          <li><a href="#">Packages</a></li>
+          <li><a href="#">Gallery</a></li>
+        </ul>
+      </div>
+
+      <!-- Company -->
+      <div class="footer-section">
+        <h4>COMPANY</h4>
+        <ul>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'our_team' %}">Our Team</a></li>
+          <li><a href="{% url 'careers' %}">Careers</a></li>
+          <li><a href="{% url 'press' %}">Press</a></li>
+        </ul>
+      </div>
+
+      <!-- Help Center -->
+      <div class="footer-section">
+        <h4>HELP CENTER</h4>
+        <ul>
+          <li><a href="{% url 'faqs' %}">FAQs</a></li>
+          <li><a href="{% url 'support' %}">Support</a></li>
+          <li><a href="{% url 'terms' %}">Terms & Conditions</a></li>
+          <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+      <p>&copy; 2025 Gujarat Tourism | Designed with ❤️</p>
+    </div>
+  </footer>
+
+  <!-- FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  </html>

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Packages | Gujarat Tourism</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style/pricing.css' %}">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="logo">Gujarat Tourism</a>
+    <span class="menu-toggle">&#9776;</span>
+    <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'destinations' %}">Destinations</a></li>
+        <li><a href="{% url 'pricing' %}">Pricing</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-overlay">
+        <h1>Tour Packages & Pricing</h1>
+        <p>Choose from our premium packages starting ₹6,000 per person.</p>
+    </div>
+</section>
+
+<!-- Pricing Grid -->
+<section class="pricing-cards">
+    <div class="cards">
+        {% for destination in destinations %}
+        <div class="card">
+            <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
+            <h3>{{ destination.name }}</h3>
+            <p>{{ destination.description|truncatechars:100 }}</p>
+            <p class="price">₹6,000 - ₹12,000 per person (Premium)</p>
+            <a href="{% url 'destination-detail' destination.id %}">Book Now</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2025 Gujarat Tourism. All rights reserved.</p>
+</footer>
+
+<script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Mobile menu toggle
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.navbar ul');
+    toggle.addEventListener('click', () => menu.classList.toggle('show'));
+</script>
+
+</body>
+</html>

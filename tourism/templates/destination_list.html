@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Destinations | Gujarat Tourism</title>
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    <style>
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00695c;
+        }
+
+        .add-button {
+            display: block;
+            margin: 20px 0;
+            text-align: right;
+        }
+
+        .add-button a {
+            padding: 10px 20px;
+            background-color: #00c48c;
+            color: white;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #004d40;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        img {
+            border-radius: 8px;
+            height: 70px;
+            width: auto;
+        }
+
+        .actions a {
+            margin: 0 5px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: 600;
+        }
+
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Destination Management</h1>
+
+        <div class="add-button">
+            <a href="{% url 'destination-add' %}">+ Add New Destination</a>
+        </div>
+
+        {% if destinations %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Short Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dest in destinations %}
+                <tr>
+                    <td><img src="{{ dest.image.url }}" alt="{{ dest.name }}"></td>
+                    <td>{{ dest.name }}</td>
+                    <td>{{ dest.short_description }}</td>
+                    <td class="actions">
+                        <a href="{% url 'destination-edit' dest.pk %}">Edit</a> |
+                        <a href="{% url 'destination-delete' dest.pk %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p style="text-align: center; padding: 20px;">No destinations available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

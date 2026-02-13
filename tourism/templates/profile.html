@@ -1,0 +1,322 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>User Profile - Gujarat Tourism (Premium)</title>
+
+  <!-- Fonts (system stack + fallback) -->
+  <style>
+    :root{
+      --primary:#0f4c81; /* deep blue */
+      --accent:#ffb400; /* saffron/gold */
+      --muted:#6b7280;
+      --glass-bg:rgba(255,255,255,0.10);
+      --card-bg:rgba(255,255,255,0.85);
+      --gold:linear-gradient(90deg,#ffd97a,#ffc14d);
+      --radius:14px;
+      --glass-blur:8px;
+      --container:1200px;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color:#0b1220; background:linear-gradient(180deg,#f6f8fb 0%, #eef4fb 100%);}
+
+    /* Layout container */
+    .wrap{max-width:var(--container);margin:2.2rem auto;padding:1rem}
+
+    /* Navbar */
+    .navbar{display:flex;align-items:center;justify-content:space-between;padding:.8rem 1rem;border-radius:12px;background:linear-gradient(90deg, rgba(180, 210, 12, 0.95), rgba(9,46,79,0.95));color:#fff;box-shadow:0 8px 30px rgba(9,46,79,0.18)}
+    .navbar .logo{font-weight:700;letter-spacing:.3px;font-size:1.05rem;display:flex;align-items:center;gap:.6rem}
+    .logo .mark{width:34px;height:34px;border-radius:8px;background:var(--gold);display:inline-grid;place-items:center;font-weight:800;color:#3f9256}
+    .nav-links{display:flex;gap:1rem;align-items:center}
+    .nav-links a{color:rgba(255,255,255,0.92);text-decoration:none;padding:.4rem .6rem;border-radius:8px;font-weight:600}
+    .nav-links a:hover{background:rgba(255,255,255,0.06)}
+    .logout-btn{background:rgba(255,255,255,0.08);padding:.45rem .7rem}
+
+    /* Hero */
+    .hero{position:relative;margin:1.4rem 0;border-radius:18px;overflow:hidden;min-height:180px;display:flex;align-items:center}
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg, rgba(19, 135, 26, 0.85), rgba(2, 10, 14, 0.65));mix-blend-mode:multiply}
+    .hero .hero-media{flex:1;background-image:url('{% static "images/bg1.jpg" %}');background-size:cover;background-position:center;opacity:.95;filter:contrast(1.02) saturate(.95)}
+    .hero .hero-text{position:relative;padding:2rem 2.4rem;color:rgb(11, 2, 2);max-width:760px}
+    .hero h1{font-size:1.8rem;margin-bottom:.3rem}
+    .hero p{opacity:.95}
+
+    /* Grid */
+    .grid{display:grid;grid-template-columns:360px 1fr;gap:1.2rem;align-items:start}
+
+    /* Profile card (glass + official + luxury) */
+    .profile-card{background:linear-gradient(180deg, rgba(190, 133, 133, 0.6), rgba(255,255,255,0.45));backdrop-filter:blur(var(--glass-blur));border-radius:var(--radius);padding:1.4rem;box-shadow:0 12px 30px rgba(15,76,129,0.08);border:1px solid rgba(255,255,255,0.6)}
+    .profile-top{display:flex;gap:1rem;align-items:center}
+    .profile-img{width:84px;height:84px;border-radius:16px;object-fit:cover;border:3px solid rgba(255,255,255,0.8);box-shadow:0 8px 18px rgba(10,25,40,0.06)}
+    .profile-name{font-weight:700;font-size:1.1rem}
+    .profile-role{color:var(--muted);font-size:.9rem}
+    .profile-details{margin-top:1rem;display:grid;gap:.5rem}
+    .profile-details p{font-size:.95rem}
+    .edit-btn{display:inline-block;margin-top:1rem;padding:.5rem .8rem;border-radius:10px;background:var(--accent);color:#09223a;font-weight:700;text-decoration:none}
+
+    /* Stats */
+    .stats{display:flex;gap:.6rem;margin-top:1rem}
+    .stat{flex:1;background:linear-gradient(180deg, rgba(75, 83, 122, 0.95), rgba(255,255,255,0.85));padding:.6rem;border-radius:10px;text-align:center;border:1px solid rgba(0,0,0,0.04)}
+    .stat .num{font-weight:700}
+    .stat .label{color:var(--muted);font-size:.85rem}
+
+    /* Main content card */
+    .card{background:var(--card-bg);padding:1.4rem;border-radius:var(--radius);box-shadow:0 10px 30px rgba(12,30,60,0.06);border:1px solid rgba(10,30,60,0.04)}
+
+    /* Payment section — premium */
+    .payment-header{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .price-badge{background:linear-gradient(90deg,#fff7ea,#fff0d1);padding:.4rem .6rem;border-radius:10px;font-weight:700;color:#6b3b00}
+    .pay-options{display:flex;gap:.5rem;margin-top:.8rem}
+    .pay-btn{flex:1;padding:.7rem;border-radius:10px;border:1px solid rgba(10,30,60,0.06);background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,250,0.9));cursor:pointer}
+    .pay-btn.active{outline:3px solid rgba(255,180,0,0.15);box-shadow:0 10px 30px rgba(255,176,0,0.06)}
+
+    /* input group */
+    .field{display:flex;flex-direction:column;margin-top:.6rem}
+    .field label{font-weight:600;margin-bottom:.25rem}
+    .field input, .field select{padding:.6rem .85rem;border-radius:10px;border:1px solid #e6e9ef;font-size:.95rem}
+
+    .pay-cta{display:flex;gap:.6rem;align-items:center;margin-top:1rem}
+    .pay-now{background:var(--accent);border:none;padding:.75rem 1.1rem;border-radius:12px;font-weight:800;cursor:pointer}
+    .secondary{padding:.6rem 1rem;border-radius:12px;border:1px solid rgba(10,30,60,0.06);background:transparent}
+
+    /* Quick links / cards */
+    .links-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1rem}
+    .link-card{padding:1rem;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(250,250,250,0.95));display:flex;align-items:center;gap:.8rem;text-decoration:none;color:inherit}
+
+    /* Footer */
+    .footer{margin-top:1.6rem;text-align:center;color:var(--muted);font-size:.9rem}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr;}
+      .hero{min-height:150px}
+      .profile-img{width:72px;height:72px}
+    }
+
+    @media (max-width:520px){
+      .nav-links{display:none}
+      .hero h1{font-size:1.3rem}
+      .wrap{padding:.6rem}
+    }
+
+    /* small utility */
+    .muted{color:yellow(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="logo">
+        <div class="mark">GT</div>
+        Gujarat Tourism
+      </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'destinations-static' %}">Destinations</a>
+        <a href="{% url 'my_bookings' %}">My Bookings</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'my_wishlist' %}">My Wishlist</a>
+
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" role="banner">
+      <div class="hero-media" aria-hidden="true"></div>
+      <div class="hero-text">
+        <h1>Welcome back, {{ user.first_name|default:user.username }}</h1>
+        <p class="muted">Explore curated experiences — personalized just for you. Premium options include private guides, luxury stays and exclusive offers.</p>
+      </div>
+    </section>
+
+    <!-- MAIN GRID -->
+    <main class="grid">
+      <!-- LEFT: Profile Card -->
+      <!-- LEFT: Profile Card -->
+<aside class="profile-card" aria-labelledby="profile-heading">
+
+    <div class="profile-top">
+        {% if user.profile.profile_pic %}
+            <img src="{{ user.profile.profile_pic.url }}" class="profile-img" alt="Profile Picture">
+        {% else %}
+            <img src="{% static 'images/default.png' %}" class="profile-img" alt="Default Picture">
+        {% endif %}
+
+        <div>
+            <div class="profile-name">{{ user.first_name }} {{ user.last_name }}</div>
+            <div class="profile-role">{{ user.email }}</div>
+            <div class="profile-role">Member since {{ user.date_joined|date:'F j, Y' }}</div>
+        </div>
+    </div>
+
+    <div class="profile-details">
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Status:</strong> Active</p>
+
+        <!-- Edit Profile Button -->
+        <a href="{% url 'edit_profile' %}" class="edit-btn">
+            Edit Profile
+        </a>
+    </div>
+
+</aside>
+
+      <!-- RIGHT: Main Card with payment and links -->
+      <section class="card">
+        <div class="payment-header">
+          <div>
+            <h3 style="margin-bottom:.2rem">Complete your booking</h3>
+            <div class="muted">Package: Gujarat Heritage Tour</div>
+          </div>
+          <div class="price-badge">₹500 · Secure</div>
+        </div>
+
+        <!-- Payment options (hybrid of all styles) -->
+        <div class="pay-options" role="tablist" aria-label="Payment Methods" style="margin-top:1rem">
+          <button class="pay-btn active" data-method="card" role="tab" aria-selected="true">💳 Card</button>
+          <button class="pay-btn" data-method="upi" role="tab">📲 UPI / GPay</button>
+          <button class="pay-btn" data-method="paypal" role="tab">🅿️ PayPal</button>
+          <button class="pay-btn" data-method="netbanking" role="tab">🏦 Netbanking</button>
+        </div>
+
+        <!-- Payment form -->
+        <form id="paymentForm" style="margin-top:1rem">
+          <!-- CARD -->
+          <div id="cardFields" class="payment-block">
+            <div class="field">
+              <label for="cardName">Name on card</label>
+              <input id="cardName" type="text" placeholder="Full name as on card">
+            </div>
+            <div class="field" style="display:flex;gap:.6rem">
+              <input id="cardNumber" aria-label="Card number" type="text" placeholder="1234 5678 9012 3456" style="flex:2">
+              <input id="expiry" type="text" placeholder="MM/YY" style="flex:1">
+              <input id="cvv" type="password" placeholder="CVV" style="flex:.9">
+            </div>
+            <div style="margin-top:.6rem;display:flex;gap:.6rem">
+              <button type="button" class="pay-now" id="payCard">Pay ₹500</button>
+              <button type="button" class="secondary" id="saveCard">Save securely</button>
+            </div>
+            <p class="muted" style="margin-top:.5rem">We do not store your card details. Card processing is handled by a PCI-compliant provider.</p>
+          </div>
+
+          <!-- UPI -->
+          <div id="upiFields" class="payment-block" style="display:none">
+            <div class="field">
+              <label for="upiId">Enter UPI ID</label>
+              <input id="upiId" type="text" placeholder="yourupi@bank">
+            </div>
+            <div style="margin-top:.6rem">
+              <button type="button" class="pay-now" id="payUpi">Pay via UPI</button>
+            </div>
+            <p class="muted" style="margin-top:.5rem">This will open your UPI app (GPay/PhonePe/Paytm) via an intent link.</p>
+          </div>
+
+          <!-- PayPal -->
+          <div id="paypalFields" class="payment-block" style="display:none">
+            <p>You will be redirected to PayPal to complete the payment. For testing, PayPal sandbox is used.</p>
+            <div style="margin-top:.6rem">
+              <button type="button" class="pay-now" id="payPaypal">Pay with PayPal</button>
+            </div>
+          </div>
+
+          <!-- Netbanking -->
+          <div id="bankFields" class="payment-block" style="display:none">
+            <div class="field">
+              <label for="bankSelect">Choose bank</label>
+              <select id="bankSelect">
+                <option value="">-- Select bank --</option>
+                <option>HDFC</option>
+                <option>ICICI</option>
+                <option>SBI</option>
+                <option>Axis Bank</option>
+              </select>
+            </div>
+            <div style="margin-top:.6rem">
+              <button type="button" class="pay-now" id="payBank">Proceed to netbanking</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Quick links -->
+        <div class="links-grid">
+          <a href="{% url 'destinations-static' %}" class="link-card">🌍 Explore Destinations<div style="margin-left:auto;color:var(--muted)">View</div></a>
+          <a href="{% url 'my_bookings' %}" class="link-card">📑 My Bookings<div style="margin-left:auto;color:var(--muted)">Manage</div></a>
+          <a href="{% url 'contact' %}" class="link-card">✉️ Contact Us<div style="margin-left:auto;color:var(--muted)">Help</div></a>
+          <a href="{% url 'home' %}" class="link-card">🏠 Back to Home<div style="margin-left:auto;color:var(--muted)">Go</div></a>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="footer">&copy; {{ now|date:'Y' }} Gujarat Tourism · All Rights Reserved</footer>
+  </div>
+
+  <script>
+    // Payment method switching (efficient event delegation)
+    const payOptions = document.querySelector('.pay-options');
+    const blocks = { card: document.getElementById('cardFields'), upi: document.getElementById('upiFields'), paypal: document.getElementById('paypalFields'), netbanking: document.getElementById('bankFields') };
+    payOptions.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.pay-btn');
+      if(!btn) return;
+      // toggle active
+      document.querySelectorAll('.pay-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const method = btn.dataset.method;
+      // show/hide blocks
+      Object.entries(blocks).forEach(([k,el])=>{ if(!el) return; el.style.display = (k===method)?'block':'none'; });
+    });
+
+    // Utility: encode UPI params
+    function encodeUPIParam(s){return encodeURIComponent(s.trim());}
+
+    // UPI payment
+    document.getElementById('payUpi').addEventListener('click', ()=>{
+      const upi = document.getElementById('upiId').value.trim();
+      if(!upi){ alert('Please enter UPI ID'); return; }
+      const pa = encodeUPIParam(upi); const pn = encodeUPIParam('Gujarat Tourism'); const am = '500';
+      // Construct UPI deep link
+      const link = `upi://pay?pa=${pa}&pn=${pn}&am=${am}&cu=INR`;
+      // For browsers that don't support upi://, also create intent for Android
+      window.location.href = link;
+    });
+
+    // Simulated card payment flow (placeholder)
+    document.getElementById('payCard').addEventListener('click', ()=>{
+      const name = document.getElementById('cardName').value.trim();
+      const number = document.getElementById('cardNumber').value.replace(/\s+/g,'');
+      const exp = document.getElementById('expiry').value.trim();
+      const cvv = document.getElementById('cvv').value.trim();
+      if(!name||!number||!exp||!cvv){ alert('Please fill card details'); return; }
+      // Basic number check
+      if(number.length < 12){ alert('Enter a valid card number'); return; }
+      // In production: send card data to your payment gateway (Stripe/Razorpay/CCAvenue) securely from backend
+      alert('Card payment flow placeholder — integrate with provider (Stripe / Razorpay / CCAvenue) on backend.');
+    });
+
+    // PayPal redirect (sandbox for testing)
+    document.getElementById('payPaypal').addEventListener('click', ()=>{
+      // For a real integration, create an order on server and redirect to approvalURL
+      window.location.href = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+    });
+
+    // Netbanking
+    document.getElementById('payBank').addEventListener('click', ()=>{
+      const bank = document.getElementById('bankSelect').value;
+      if(!bank){ alert('Please select a bank'); return; }
+      alert('Redirecting to bank gateway (placeholder)');
+    });
+
+    // Accessibility: keyboard toggles
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Tab') return; // keep natural flow
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+/* Full-page background with overlay */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url("../images/navratri.jpg") no-repeat center center/cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55); /* dark overlay */
+    backdrop-filter: blur(3px);
+}
+
+/* Centered login card */
+.auth-container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 40px;
+    width: 380px;
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    animation: fadeInUp 0.8s ease;
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Form fields */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form label {
+    font-size: 14px;
+    text-align: left;
+    color: #ddd;
+}
+
+.auth-form input {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.auth-form input:focus {
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+/* Button */
+.auth-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #ff6600, #ff9900);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.auth-btn:hover {
+    background: linear-gradient(135deg, #ff9900, #ff6600);
+    transform: translateY(-2px);
+}
+
+/* Links */
+.auth-link {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.auth-link a {
+    color: #ffcc66;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.auth-link a:hover {
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Hero animated text above login */
+.hero-text {
+    position: absolute;
+    top: 15%;
+    width: 100%;
+    text-align: center;
+    color: #ffcc66; /* Gujarat Tourism highlight color */
+    z-index: 2;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #ffcc33;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+    letter-spacing: 2px;
+    min-height: 60px; /* prevent shifting */
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .hero-text h1 {
+        font-size: 32px;
+    }
+}

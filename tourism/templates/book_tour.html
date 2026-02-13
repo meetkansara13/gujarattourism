@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Tour - {{ destination.name }}</title>
+  <link rel="stylesheet" href="{% static 'style/style.css' %}">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("{% static 'images/bg2.png' %}") no-repeat center center fixed;
+      background-size: cover;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .booking-container {
+      width: 90%;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .booking-container h2 {
+      color: #d4af37;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .booking-container label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    .booking-container input,
+    .booking-container select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .booking-container button {
+      width: 100%;
+      background: #d4af37;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .booking-container button:hover {
+      background: #c29e2f;
+    }
+
+    .message-box {
+      background: #d4edda;
+      color: #155724;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .errorlist {
+      color: #e74c3c;
+      margin: -15px 0 15px 0;
+      font-size: 14px;
+      list-style: none;
+    }
+
+    .price-box {
+      background: #f8f9fa;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-container">
+    <h2>Book a Tour to {{ destination.name }}</h2>
+    <form method="post">
+      {% csrf_token %}
+
+      {% if messages %}
+        {% for message in messages %}
+          <div class="message-box">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <label for="id_full_name">Full Name</label>
+      {{ form.full_name }}
+      {{ form.full_name.errors }}
+
+      <label for="id_email">Email</label>
+      {{ form.email }}
+      {{ form.email.errors }}
+
+      <label for="id_phone">Phone Number</label>
+      {{ form.phone }}
+      {{ form.phone.errors }}
+
+      <label for="id_destination">Destination</label>
+      {{ form.destination }}
+      {{ form.destination.errors }}
+
+      <label for="id_travel_date">Travel Date</label>
+      {{ form.travel_date }}
+      {{ form.travel_date.errors }}
+
+      <label for="id_number_of_people">Number of People</label>
+      {{ form.number_of_people }}
+      {{ form.number_of_people.errors }}
+
+      <!-- Live Price Display -->
+      <div class="price-box">
+        Total Price: ₹<span id="totalPrice">4000</span>
+      </div>
+
+      <button type="submit">Book Now</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const peopleInput = document.getElementById("id_number_of_people");
+      const priceDisplay = document.getElementById("totalPrice");
+      const dateInput = document.getElementById("id_travel_date");
+      const basePrice = 4000;
+
+      // Set today's date as min date
+      let today = new Date().toISOString().split("T")[0];
+      dateInput.setAttribute("min", today);
+
+      function updatePrice() {
+        let people = parseInt(peopleInput.value) || 1;
+        priceDisplay.textContent = basePrice * people;
+      }
+
+      peopleInput.addEventListener("input", updatePrice);
+      updatePrice(); // initial load
+    });
+  </script>
+</body>
+</html>
+
+

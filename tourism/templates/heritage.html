@@ -1,0 +1,721 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Heritage of Gujarat | Gujarat Tourism</title>
+
+  <!-- Fonts + main CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'style/heritage.css' %}" />
+  <link rel="stylesheet" href="{% static 'style/style.css' %}" />
+  <style>
+    /* tiny page-level helpers to ensure consistent look if heritage.css missing */
+    :root{--accent:#ffb400;--muted:#f5f5f6;--deep:#222;--card:#fff;--glass:rgba(255,255,255,0.7)}
+    body{font-family:Inter,system-ui,Arial;color:var(--deep);margin:0;background:linear-gradient(180deg,#fff,#fcfbfb)}
+    .container{max-width:1200px;margin:32px auto;padding:0 20px}
+    .section-title{font-family:"Playfair Display",serif;margin:0 0 12px;font-size:28px}
+    .muted{color:#666;font-size:14px}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR (use your site's partial) -->
+   <header class="navbar">
+        <div class="logo">Gujarat <span>Tourism</span></div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+            <li><a href="{% url 'festivals' %}">Festival</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+        </div>
+    </header>
+
+  <!-- HERO -->
+<section class="hero" style="background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15)), url('{% static "images/heritage_hero.jpg" %}') center/cover no-repeat; padding: 80px 20px; color: #fff; text-align: center; font-family: 'Playfair Display', serif;">
+
+    <div class="container">
+
+      <h1 style="font-size:44px; margin:0 0 8px;">Heritage of Gujarat</h1>
+      <p style="max-width:900px; margin:0 auto; font-size:18px; opacity:.95;">
+        Explore Gujarat’s long history, signature food, UNESCO monuments, and living culture — presented as an elegant premium guide.
+      </p>
+    </div>
+</section>
+
+  <main class="container">
+
+    <!-- top tabs -->
+    <div style="display:flex;gap:12px;justify-content:center;margin:26px 0">
+      <button class="tab-btn active" data-tab="history" style="padding:10px 18px;border-radius:10px;border:none;background:var(--accent);color:#0c0505;cursor:pointer">History</button>
+      <button class="tab-btn" data-tab="food" style="padding:10px 18px;border-radius:10px;border:none;background:#060303;cursor:pointer">Food</button>
+      <button class="tab-btn" data-tab="heritage-sites" style="padding:10px 18px;border-radius:10px;border:none;background:#070404;cursor:pointer">Heritage Sites</button>
+      <button class="tab-btn" data-tab="culture" style="padding:10px 18px;border-radius:10px;border:none;background:#060303;cursor:pointer">Culture</button>
+    </div>
+
+    <!-- ========== HISTORY SECTION (12 cards) ========== -->
+    <section id="history" class="section active">
+      <h2 class="section-title">History of Gujarat</h2>
+      <p class="muted" style="margin-bottom:18px">A concise summary is shown; click “Read More” on any card for the in-depth text.</p>
+
+      <div class="grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:80px">
+        <!-- 1 -->
+        <article class="card history-card">
+          <img src="{% static 'images/rani_ki_vav.jpg' %}" alt="Rani Ki Vav">
+          <div class="card-body">
+            <h4>Rani Ki Vav (Patan)</h4>
+            <p class="brief-text muted">A masterful 11th-century stepwell renowned for its sculptures.</p>
+            <p class="full-text" style="display:none">Rani Ki Vav, constructed during the Solanki dynasty, is an inverted temple symbolizing the sanctity of water. It contains hundreds of detailed sculptures and panels depicting religious and secular themes. Designated UNESCO World Heritage (2014).</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="card history-card">
+          <img src="{% static 'images/lothal.jpg' %}" alt="Lothal">
+          <div class="card-body">
+            <h4>Lothal (Harappan Port)</h4>
+            <p class="brief-text muted">One of the southernmost cities of the ancient Indus (Harappan) Civilization.</p>
+            <p class="full-text" style="display:none">Lothal was a thriving port in 2400–1900 BCE with well-planned docks, bead-making workshops and an advanced drainage system. Excavations reveal trade with Mesopotamia and local urban planning practices.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="card history-card">
+          <img src="{% static 'images/dholavira.jpg' %}" alt="Dholavira">
+          <div class="card-body">
+            <h4>Dholavira (Harappan City)</h4>
+            <p class="brief-text muted">Major Indus Valley city — important urban center discovered in Kutch.</p>
+            <p class="full-text" style="display:none">Dholavira showcases the sophistication of Harappan town planning: reservoirs, reservoirs' channels, citadels, and an advanced water management system. Its ruins reveal fortifications and a unique Harappan script on seals.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="card history-card">
+          <img src="{% static 'images/champaner_pavagadh.jpg' %}" alt="Champaner-Pavagadh">
+          <div class="card-body">
+            <h4>Champaner–Pavagadh</h4>
+            <p class="brief-text muted">Historic fortified city with mosques, palaces and stepwells.</p>
+            <p class="full-text" style="display:none">An archaeological park spanning a significant medieval city center — contains early 16th century monuments and a blend of Hindu and Islamic architecture. UNESCO-inscribed for its urban/architectural heritage.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="card history-card">
+          <img src="{% static 'images/modhera_sun_temple.jpg' %}" alt="Modhera Sun Temple">
+          <div class="card-body">
+            <h4>Modhera Sun Temple</h4>
+            <p class="brief-text muted">A stunning Hindu temple dedicated to Surya, famous for carvings and stepwell ponds.</p>
+            <p class="full-text" style="display:none">Built in the 11th century under the Solanki rulers, the temple complex features a main shrine, open sabha (assembly hall) and a large stepped tank — with exquisite reliefs illustrating Vedic and Puranic themes.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="card history-card">
+          <img src="{% static 'images/somnath.jpg' %}" alt="Somnath Temple">
+          <div class="card-body">
+            <h4>Somnath Temple</h4>
+            <p class="brief-text muted">Ancient Shiva shrine (one of the 12 Jyotirlingas) with a long recorded history.</p>
+            <p class="full-text" style="display:none">Located on the Arabian Sea coast, Somnath is a spiritual center that has been rebuilt many times across centuries. Its architectural form reflects successive regional styles and a continuous devotion tradition.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="card history-card">
+          <img src="{% static 'images/dwarka.jpg' %}" alt="Dwarka">
+          <div class="card-body">
+            <h4>Dwarka / Dwarkadhish</h4>
+            <p class="brief-text muted">Mythic kingdom of Krishna — major pilgrimage and historical port.</p>
+            <p class="full-text" style="display:none">Dwarka is both a religious hub and an archaeological site with maritime and temple remains. The Dwarkadhish Temple complex attracts pilgrims and reflects centuries of maritime trade influence.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="card history-card">
+          <img src="{% static 'images/girnar.jpg' %}" alt="Girnar">
+          <div class="card-body">
+            <h4>Girnar Hills (Junagadh)</h4>
+            <p class="brief-text muted">Ancient pilgrimage complex with temples and rock-cut steps.</p>
+            <p class="full-text" style="display:none">Girnar hosts temples from Jain and Hindu traditions, ancient inscriptions and an extensive climb of pilgrim steps. Historically important in regional politics and spirituality.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 9 -->
+        <article class="card history-card">
+          <img src="{% static 'images/sabarmati_ashram.jpeg' %}" alt="Sabarmati Ashram">
+          <div class="card-body">
+            <h4>Sabarmati Ashram (Ahmedabad)</h4>
+            <p class="brief-text muted">Mahatma Gandhi's residence and a key center for India's freedom movement.</p>
+            <p class="full-text" style="display:none">Sabarmati Ashram served as Gandhi's base for many years; it preserves archives, exhibits, and an atmosphere of the independence movement, making it a major historical and educational site.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="card history-card">
+          <img src="{% static 'images/vijay_vilas_palace.jpg' %}" alt="Vijay Vilas Palace">
+          <div class="card-body">
+            <h4>Vijay Vilas Palace (Mandvi)</h4>
+            <p class="brief-text muted">Coastal palace known for its architecture and gardens.</p>
+            <p class="full-text" style="display:none">Vijay Vilas Palace represents Indo-European architectural influences and has been a notable film location; the grounds and interiors reflect princely-era aesthetics.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 11 -->
+        <article class="card history-card">
+          <img src="{% static 'images/prag_mahal.jpg' %}" alt="Prag Mahal">
+          <div class="card-body">
+            <h4>Prag Mahal (Bhuj)</h4>
+            <p class="brief-text muted">19th-century palace combining European and Indian styles.</p>
+            <p class="full-text" style="display:none">Constructed in the 1860s, Prag Mahal exhibits Gothic revival and Italianate motifs with elaborate woodwork, marble staircases and ornamental details.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+
+        <!-- 12 -->
+        <article class="card history-card">
+          <img src="{% static 'images/laxmi_vilas_palace.jpg' %}" alt="Laxmi Vilas Palace">
+          <div class="card-body">
+            <h4>Laxmi Vilas Palace (Vadodara)</h4>
+            <p class="brief-text muted">Grand palace of the Gaekwads — rich Indo-European architecture and collections.</p>
+            <p class="full-text" style="display:none">Laxmi Vilas Palace, built in late 19th century, contains museums, a golf course and extensive collections of art, uniforms and arms from the princely state era.</p>
+            <button class="read-more-btn">Read More</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== FOOD SECTION (15+ dishes) ========== -->
+    <section id="food" class="section" style="display:none;margin-top:18px">
+      <h2 class="section-title">Food of Gujarat — A → Z</h2>
+      <p class="muted" style="margin-bottom:12px">Type a dish name to quick-search. Hover or click for more details.</p>
+
+      <input id="food-search" type="text" placeholder="Search food A–Z (e.g., Dhokla, Thepla, Undhiyu)" style="width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-bottom:18px" />
+
+      <div id="food-list" class="grid" style="margin-bottom:30px">
+        <!-- 1 Dhokla -->
+        <article class="card food-card">
+          <img src="{% static 'images/dhokla.jpg' %}" alt="Dhokla">
+          <div class="card-body">
+            <h4>Dhokla</h4>
+            <p class="muted">Steamed fermented sesame/chickpea cake — soft, tangy snack.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Ahmedabad / All Gujarat</p>
+          </div>
+        </article>
+
+        <!-- 2 Khandvi -->
+        <article class="card food-card">
+          <img src="{% static 'images/khandvi.jpg' %}" alt="Khandvi">
+          <div class="card-body">
+            <h4>Khandvi</h4>
+            <p class="muted">Thin gram-flour rolls tempered with mustard and coconut.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Coastal Gujarat</p>
+          </div>
+        </article>
+
+        <!-- 3 Undhiyu -->
+        <article class="card food-card">
+          <img src="{% static 'images/undhiyu.jpg' %}" alt="Undhiyu">
+          <div class="card-body">
+            <h4>Undhiyu</h4>
+            <p class="muted">Winter mixed-vegetable specialty cooked upside-down in earthen pots.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Surat / Kutch</p>
+          </div>
+        </article>
+
+        <!-- 4 Thepla -->
+        <article class="card food-card">
+          <img src="{% static 'images/thepla.jpeg' %}" alt="Thepla">
+          <div class="card-body">
+            <h4>Thepla</h4>
+            <p class="muted">Fenugreek-spiced flatbread — travel-friendly staple.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Kathiawar</p>
+          </div>
+        </article>
+
+        <!-- 5 Fafda-Jalebi -->
+        <article class="card food-card">
+          <img src="{% static 'images/fafda_jalebi.jpg' %}" alt="Fafda-Jalebi">
+          <div class="card-body">
+            <h4>Fafda &amp; Jalebi</h4>
+            <p class="muted">Crispy gram snack with sweet jalebi — classic combo.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Ahmedabad / Surat</p>
+          </div>
+        </article>
+
+        <!-- 6 Handvo -->
+        <article class="card food-card">
+          <img src="{% static 'images/handvo.jpg' %}" alt="Handvo">
+          <div class="card-body">
+            <h4>Handvo</h4>
+            <p class="muted">Baked savory cake with lentils and bottle gourd.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Gujarati homes</p>
+          </div>
+        </article>
+
+        <!-- 7 Khakhra -->
+        <article class="card food-card">
+          <img src="{% static 'images/khakhra.jpg' %}" alt="Khakhra">
+          <div class="card-body">
+            <h4>Khakhra</h4>
+            <p class="muted">Crispy roasted wheat crackers, breakfast staple.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Gujarat</p>
+          </div>
+        </article>
+
+        <!-- 8 Patra (Alu Vadi) -->
+        <article class="card food-card">
+          <img src="{% static 'images/patra.jpg' %}" alt="Patra">
+          <div class="card-body">
+            <h4>Patra</h4>
+            <p class="muted">Steamed colocasia leaf rolls spiced with tamarind and jaggery.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Gujarat</p>
+          </div>
+        </article>
+
+        <!-- 9 Sev Khamani -->
+        <article class="card food-card">
+          <img src="{% static 'images/sev_khamani.jpg' %}" alt="Sev Khamani">
+          <div class="card-body">
+            <h4>Sev Khamani</h4>
+            <p class="muted">Savory mashed chickpea snack garnished with sev and pomegranate.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Gujarati street food</p>
+          </div>
+        </article>
+
+        <!-- 10 Muthiya -->
+        <article class="card food-card">
+          <img src="{% static 'images/muthiya.jpg' %}" alt="Muthiya">
+          <div class="card-body">
+            <h4>Muthiya</h4>
+            <p class="muted">Steamed dumplings made with wheat and fenugreek leaves, tempered with spices.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Gujarat</p>
+          </div>
+        </article>
+
+        <!-- 11 Lilva Kachori -->
+        <article class="card food-card">
+          <img src="{% static 'images/lilva_kachori.jpg' %}" alt="Lilva Kachori">
+          <div class="card-body">
+            <h4>Lilva Kachori</h4>
+            <p class="muted">Pea-stuffed kachori, popular in Kutch and Surat.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Kutch / Surat</p>
+          </div>
+        </article>
+
+        <!-- 12 Surati Ghari (sweet) -->
+        <article class="card food-card">
+          <img src="{% static 'images/surati_ghari.jpg' %}" alt="Surati Ghari">
+          <div class="card-body">
+            <h4>Surati Ghari</h4>
+            <p class="muted">Sweet specialty from Surat, rich with ghee and mawa.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Surat</p>
+          </div>
+        </article>
+
+        <!-- 13 Dabeli -->
+        <article class="card food-card">
+          <img src="{% static 'images/dabeli.jpg' %}" alt="Dabeli">
+          <div class="card-body">
+            <h4>Dabeli</h4>
+            <p class="muted">Spiced mashed potato snack in a bun, sweet & spicy.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Kutch / Gujarat roadsides</p>
+          </div>
+        </article>
+
+        <!-- 14 Gathiya / Ganthiya -->
+        <article class="card food-card">
+          <img src="{% static 'images/ganthiya.jpg' %}" alt="Ganthiya">
+          <div class="card-body">
+            <h4>Ganthiya</h4>
+            <p class="muted">Crunchy gram-flour sticks — tea-time favorite.</p>
+            <p style="margin-top:8px;font-size:13px">Region: Gujarat</p>
+          </div>
+        </article>
+
+        <!-- 15 Gujarati Thali (representative) -->
+        <article class="card food-card">
+          <img src="{% static 'images/gujarati_thali.jpg' %}" alt="Gujarati Thali">
+          <div class="card-body">
+            <h4>Gujarati Thali</h4>
+            <p class="muted">A balanced plate with several small dishes: dal, sabzi, chutneys, roti, rice and sweets.</p>
+            <p style="margin-top:8px;font-size:13px">Region: All Gujarat</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== HERITAGE SITES SECTION (15 cards) ========== -->
+    <section id="heritage-sites" class="section" style="display:none;margin-top:18px">
+      <h2 class="section-title">Heritage & UNESCO Sites (Gujarat)</h2>
+      <p class="muted" style="margin-bottom:12px">Click any card for more details; each entry includes best time, entry and coverage.</p>
+
+      <div class="grid">
+        <!-- 1 Rani Ki Vav (UNESCO) -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/rani_ki_vav.jpg' %}" alt="Rani Ki Vav">
+          <div class="card-body">
+            <h4>Rani Ki Vav — Patan (UNESCO)</h4>
+            <p class="muted">11th-century stepwell famed for sculpture and reliefs.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Mar | Entry: ₹40 (Indians) / ₹600 (foreigners) | Area: Stepwell complex</p>
+          </div>
+        </article>
+
+        <!-- 2 Champaner-Pavagadh (UNESCO) -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/champaner_pavagadh.jpg' %}" alt="Champaner-Pavagadh">
+          <div class="card-body">
+            <h4>Champaner–Pavagadh Archaeological Park (UNESCO)</h4>
+            <p class="muted">Historic city with forts, mosques and palaces from 8th–14th centuries.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Nov–Feb | Entry: nominal | Area: ~3,280 ha</p>
+          </div>
+        </article>
+
+        <!-- 3 Dholavira (UNESCO) -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/dholavira.jpg' %}" alt="Dholavira">
+          <div class="card-body">
+            <h4>Dholavira — Kutch (UNESCO)</h4>
+            <p class="muted">Major Harappan city with reservoirs and fortifications.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Mar | Entry: ₹ (site fees vary) | Area: Large archaeological complex</p>
+          </div>
+        </article>
+
+        <!-- 4 Modhera Sun Temple -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/modhera.jpg' %}" alt="Modhera Sun Temple">
+          <div class="card-body">
+            <h4>Modhera Sun Temple</h4>
+            <p class="muted">Sun temple with carvings and a stepped tank (Surya Kund).</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: nominal | Area: Temple complex</p>
+          </div>
+        </article>
+
+        <!-- 5 Somnath -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/somnath.jpg' %}" alt="Somnath Temple">
+          <div class="card-body">
+            <h4>Somnath Temple</h4>
+            <p class="muted">Coastal Shiva temple of historic prominence and pilgrimage.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: Free | Area: Temple complex</p>
+          </div>
+        </article>
+
+        <!-- 6 Dwarka -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/dwarka.jpg' %}" alt="Dwarka">
+          <div class="card-body">
+            <h4>Dwarkadhish Temple & Dwarka</h4>
+            <p class="muted">Pilgrimage town linked to Krishna legends and ancient port archaeology.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Mar | Entry: Temple donations | Area: City complex</p>
+          </div>
+        </article>
+
+        <!-- 7 Girnar Temples -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/girnar.jpg' %}" alt="Girnar Temples">
+          <div class="card-body">
+            <h4>Girnar Hill Temples</h4>
+            <p class="muted">Ancient Jain & Hindu temples on a sacred hill with pilgrimage steps.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: Free | Area: Hill complex</p>
+          </div>
+        </article>
+
+        <!-- 8 Lothal -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/lothal.jpg' %}" alt="Lothal">
+          <div class="card-body">
+            <h4>Lothal (Harappan)</h4>
+            <p class="muted">Ancient port town known for dockyard remains and bead-making.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: nominal | Area: Archaeological site</p>
+          </div>
+        </article>
+
+        <!-- 9 Adalaj Stepwell -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/adalaj.jpg' %}" alt="Adalaj Stepwell">
+          <div class="card-body">
+            <h4>Adalaj Vav (Stepwell)</h4>
+            <p class="muted">Beautifully carved stepwell in Ahmedabad district.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Mar | Entry: small fee | Area: Stepwell</p>
+          </div>
+        </article>
+
+        <!-- 10 Sarkhej Roza -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/sarkhej_roza.jpg' %}" alt="Sarkhej Roza">
+          <div class="card-body">
+            <h4>Sarkhej Roza (Ahmedabad)</h4>
+            <p class="muted">A complex of tombs, mosques and palaces with elegant Indo-Islamic architecture.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Mar | Entry: Free / Donation | Area: Complex</p>
+          </div>
+        </article>
+
+        <!-- 11 Sidi Saiyyed -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/sidi_saiyyed.jpg' %}" alt="Sidi Saiyyed Mosque">
+          <div class="card-body">
+            <h4>Sidi Saiyyed Mosque (Ahmedabad)</h4>
+            <p class="muted">Famous for its lattice stonework 'Tree of Life' window.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: small fee | Area: Mosque</p>
+          </div>
+        </article>
+
+        <!-- 12 Sabarmati Ashram -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/sabarmati_ashram.jpg' %}" alt="Sabarmati Ashram">
+          <div class="card-body">
+            <h4>Sabarmati Ashram (Ahmedabad)</h4>
+            <p class="muted">Gandhi's ashram preserving the freedom movement history and archives.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Mar | Entry: Free | Area: Ashram complex</p>
+          </div>
+        </article>
+
+        <!-- 13 Vijay Vilas Palace -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/vijay_vilas_palace.jpg' %}" alt="Vijay Vilas Palace">
+          <div class="card-body">
+            <h4>Vijay Vilas Palace (Mandvi)</h4>
+            <p class="muted">Seaside palace with lawns and royal interiors.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: Paid tours available | Area: Palace complex</p>
+          </div>
+        </article>
+
+        <!-- 14 Prag Mahal -->
+        <article class="card heritage-card">
+          <img src="{% static 'images/prag_mahal.jpg' %}" alt="Prag Mahal">
+          <div class="card-body">
+            <h4>Prag Mahal (Bhuj)</h4>
+            <p class="muted">19th-century palace of the Jadeja rulers with Gothic elements.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: small fee | Area: Palace complex</p>
+          </div>
+        </article>
+
+        <!-- 15 Laxmi Vilas Palace -->
+        <article class="card heritage-card">
+          <img src="{% static 'image/laxmi_vilas_palace.jpg' %}" alt="Laxmi Vilas Palace">
+          <div class="card-body">
+            <h4>Laxmi Vilas Palace (Vadodara)</h4>
+            <p class="muted">Opulent palace with museums and art collections.</p>
+            <p style="margin-top:8px;font-size:13px">Best time: Oct–Feb | Entry: Paid (museum) | Area: Palace grounds</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== CULTURE SECTION (12 cards) ========== -->
+    <section id="culture" class="section" style="display:none;margin-top:18px">
+      <h2 class="section-title">Culture of Gujarat</h2>
+      <p class="muted" style="margin-bottom:12px">Festivals, dance, textiles and living traditions.</p>
+
+      <div class="grid">
+        <!-- Garba -->
+        <article class="card">
+          <img src="{% static 'images/garba.jpg' %}" alt="Garba Dance">
+          <div class="card-body">
+            <h4>Garba &amp; Dandiya</h4>
+            <p class="muted">Navratri's traditional dance — colorful, rhythmic and community-focused.</p>
+          </div>
+        </article>
+
+        <!-- Bandhani -->
+        <article class="card">
+          <img src="{% static 'images/bandhani.jpeg' %}" alt="Bandhani">
+          <div class="card-body">
+            <h4>Bandhani / Bandhej</h4>
+            <p class="muted">Tie-dye textile technique known for tiny dotted patterns and bright colors.</p>
+          </div>
+        </article>
+
+        <!-- Patola -->
+        <article class="card">
+          <img src="{% static 'images/patola.jpg' %}" alt="Patola">
+          <div class="card-body">
+            <h4>Patola Sarees (Patan)</h4>
+            <p class="muted">Handwoven double ikat textiles — highly prized and intricate.</p>
+          </div>
+        </article>
+
+        <!-- Kutchi embroidery -->
+        <article class="card">
+          <img src="{% static 'images/kutchi_embroidery.jpg' %}" alt="Kutchi Embroidery">
+          <div class="card-body">
+            <h4>Kutchi Embroidery</h4>
+            <p class="muted">Rich regional needlework with mirrors and color — from Kutch communities.</p>
+          </div>
+        </article>
+
+        <!-- Bhavai -->
+        <article class="card">
+          <img src="{% static 'images/bhavai.jpg' %}" alt="Bhavai">
+          <div class="card-body">
+            <h4>Bhavai (Folk Theatre)</h4>
+            <p class="muted">A traditional dramatic performance blending music, dance and storytelling.</p>
+          </div>
+        </article>
+
+        <!-- Folk Music -->
+        <article class="card">
+          <img src="{% static 'images/folk_music.jpg' %}" alt="Folk Music">
+          <div class="card-body">
+            <h4>Folk Music</h4>
+            <p class="muted">Dhol, manjira, and localized singing traditions — devotional & celebratory forms.</p>
+          </div>
+        </article>
+
+        <!-- Kite festival -->
+        <article class="card">
+          <img src="{% static 'images/uttarayan.jpg' %}" alt="Uttarayan / Kite Festival">
+          <div class="card-body">
+            <h4>Uttarayan (Kite Festival)</h4>
+            <p class="muted">Annual international kite festival (January) — skies full of color.</p>
+          </div>
+        </article>
+
+        <!-- Handicrafts -->
+        <article class="card">
+          <img src="{% static 'images/handicrafts.jpg' %}" alt="Handicrafts">
+          <div class="card-body">
+            <h4>Handicrafts &amp; Pottery</h4>
+            <p class="muted">Bandhani, block-printing, pottery and brassware traditions.</p>
+          </div>
+        </article>
+
+        <!-- Siddi community -->
+        <article class="card">
+          <img src="{% static 'images/siddi.jpg' %}" alt="Siddi Tradition">
+          <div class="card-body">
+            <h4>Siddi &amp; African-Gujarati Traditions</h4>
+            <p class="muted">Unique cultural strands introduced through historical trade and migration.</p>
+          </div>
+        </article>
+
+        <!-- Festivals card -->
+        <article class="card">
+          <img src="{% static 'images/festivals.jpg' %}" alt="Festivals">
+          <div class="card-body">
+            <h4>Major Festivals</h4>
+            <p class="muted">Navratri, Diwali, Holi, and local harvest festivals celebrated with vigor.</p>
+          </div>
+        </article>
+
+        <!-- Food culture -->
+        <article class="card">
+          <img src="{% static 'images/food_culture.jpg' %}" alt="Food Culture">
+          <div class="card-body">
+            <h4>Food Culture</h4>
+            <p class="muted">Community eating, thali traditions and strong regional identities in cuisine.</p>
+          </div>
+        </article>
+
+        <!-- 12th -->
+        <article class="card">
+          <img src="{% static 'images/folk_art.jpg' %}" alt="Folk Art">
+          <div class="card-body">
+            <h4>Folk Art</h4>
+            <p class="muted">Paintings, mural works, and community art events across Gujarat.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== NEW HERO + BOOKING (replace your existing hero + aside) ====== -->
+<section class="hero">
+  <div class="hero-bg" style="background-image: url('{% static "images/heritage-hero.jpg" %}');"></div>
+
+  <div class="hero-content container">
+    <!-- left: heading / intro -->
+    <div class="hero-text">
+      <h1>Heritage of Gujarat</h1>
+      <p class="lead">Explore Gujarat’s long history, signature food, UNESCO monuments, and living culture — presented as an elegant, premium guide.</p>
+      <div class="hero-cta">
+        <button class="cta small active tab-btn" data-tab="history" style="background:#060303">History</button>
+        <button class="cta small tab-btn" data-tab="food" style="background:#060303">Food</button>
+        <button class="cta small tab-btn" data-tab="heritage-sites" style="background:#060303">Heritage Sites</button>
+        <button class="cta small tab-btn" data-tab="culture" style="background:#060303">Culture</button>
+      </div>
+    </div>
+
+    <!-- right: booking widget (keeps same IDs so JS works) -->
+    <div class="hero-booking">
+      <form id="heritage-booking-form" class="booking-form" onsubmit="return false;">
+        <h3>Book Heritage Tour</h3>
+        <p class="muted small">Book a curated heritage experience. We will confirm availability.</p>
+
+        <label for="tour-select">Select Tour</label>
+        <select id="tour-select" name="tour_id" required>
+          <option value="heritage" data-price="15000" selected>Gujarat Heritage Tour — ₹15,000</option>
+          <option value="food" data-price="12000">Food & Culture Tour — ₹12,000</option>
+          <option value="temple" data-price="18000">Temple Circuit Tour — ₹18,000</option>
+          <option value="kutch" data-price="20000">Kutch Desert Tour — ₹20,000</option>
+        </select>
+
+        <label for="full_name">Full Name</label>
+        <input id="full_name" name="full_name" type="text" placeholder="Your name" required>
+
+        <div class="row two">
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="example@mail.com">
+          </div>
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="+91 9XXXXXXXXX" required>
+          </div>
+        </div>
+
+        <label for="price_input">Price</label>
+        <input id="price_input" name="price" type="text" readonly value="₹15000">
+
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" rows="3" placeholder="Any preferences"></textarea>
+
+        <button id="book-now" class="primary" type="button">Book Now</button>
+
+        <div id="booking-success" class="booking-feedback" role="status" aria-live="polite" style="background: green;">heritagely approven</div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- ====== END NEW HERO + BOOKING ====== -->
+  <!-- Inline snippet to expose URL + CSRF cookie for the static JS -->
+  <script>
+    // IMPORTANT: this inline script *must* be present (heritage.js is static and cannot use template tags)
+    window.HERITAGE_BOOK_URL = "{% url 'book_heritage_tour' %}";
+    (function getCookie(name){ var cookieValue=null; if(document.cookie && document.cookie!==''){ var cookies=document.cookie.split(';'); for(var i=0;i<cookies.length;i++){var c=cookies[i].trim(); if(c.substring(0,name.length+1)=== (name+'=')){cookieValue=decodeURIComponent(c.substring(name.length+1)); break;}}} window.HERITAGE_CSRF = cookieValue; })('csrftoken');
+  </script>
+
+  <!-- static js -->
+  <script src="{% static 'js/heritage.js' %}"></script>
+
+  <!-- small inline tab switcher to ensure immediate responsiveness (heritage.js duplicates this, safe) -->
+  <script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = btn.dataset.tab;
+        document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+        document.getElementById(tab).style.display = 'block';
+      });
+    });
+    // show default
+    document.querySelectorAll('.section').forEach(s => s.style.display='none');
+    document.getElementById('history').style.display='block';
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{% extends 'custom_admin/base.html' %}
+{% block content %}
+<h1>Are you sure you want to delete "{{ object }}"?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="deletelink">Yes, delete</button>
+    <a href="{% url 'destination_list' %}">Cancel</a>
+</form>
+{% endblock %}

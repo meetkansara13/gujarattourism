@@ -1,0 +1,113 @@
+/* === PREMIUM SHARED STYLING === */
+
+.classic-hero {
+    padding: 90px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #0f4c81, #062d4a 60%, #0f4c81);
+    color: #fff;
+    border-bottom: 4px solid #ffb400;
+    font-family: 'Playfair Display', serif;
+}
+
+.classic-hero h1 {
+    font-size: 55px;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.classic-hero p {
+    max-width: 850px;
+    margin: auto;
+    font-size: 20px;
+    opacity: 0.95;
+}
+
+.section-wrap {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.glass-box {
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.85);
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 40px;
+    border-left: 5px solid #ffb400;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.glass-box h2 {
+    font-size: 30px;
+    color: #0f4c81;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 10px;
+}
+
+.glass-box p {
+    font-size: 18px;
+    color: #444;
+    line-height: 1.7;
+    font-family: 'Inter', sans-serif;
+}
+
+/* === TEAM SECTION === */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.team-card {
+    padding: 20px;
+    background: white;
+    border-radius: 18px;
+    text-align: center;
+    border-top: 4px solid #ffb400;
+    border-bottom: 4px solid #0f4c81;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transition: .3s ease;
+    animation: fadeUp 1s ease forwards;
+    opacity: 0;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+}
+
+.team-card img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #ffb400;
+    margin-bottom: 15px;
+}
+
+.team-card h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    font-family: 'Playfair Display', serif;
+    color: #0f4c81;
+}
+
+.team-card p.role {
+    font-weight: 600;
+    color: #ffb400;
+    margin-bottom: 8px;
+}
+
+.team-card p.bio {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+}

@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Destinations | Gujarat Tourism</title>
+    <link rel="stylesheet" href="{% static 'style/des.css' %}">
+</head>
+<body>
+    <style>
+        .wishlist-box {
+    margin: 10px 0;
+}
+
+.wishlist {
+    padding: 7px 14px;
+    display: inline-block;
+    color: #fff;
+    border: 1px solid #ffffff50;
+    border-radius: 8px;
+    font-size: 14px;
+    background: rgba(255,255,255,0.15);
+    transition: 0.3s;
+}
+
+.wishlist:hover {
+    background: #ff4b4b;
+}
+
+.wishlist.active {
+    background: #ff4b4b;
+}
+
+    </style>
+    <!-- Navbar -->
+    <div class="page-overlay"></div>
+
+    <header class="navbar">
+        <div class="logo">Gujarat <span>Tourism</span></div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'destinations-static' %}" class="active">Destinations</a></li>
+            <li><a href="{% url 'heritage' %}">Heritage</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <div class="search-box">
+            <form method="GET" action="{% url 'search-destination' %}">
+                <input type="text" name="q" placeholder="Search..." required>
+                <button type="submit" class="btn-search">Search</button>
+            </form>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="overlay">
+            <h1>EXPLORE <span>GUJARAT</span></h1>
+            <p>Discover the diverse destinations of Gujarat, from sacred temples and historic architecture to scenic landscapes and cultural heritage.</p>
+            <a href="#destinations-grid" class="btn">EXPLORE NOW</a>
+        </div>
+    </section>
+
+    <!-- Destination Cards -->
+    <section id="destinations-grid" class="cards">
+        {% for destination in page_obj %}
+        <div class="card">
+            <img src="{{ destination.image.url }}" alt="{{ destination.name }}">
+            <h3>{{ destination.name }}</h3>
+            <p>{{ destination.short_description }}</p>
+            <!-- Wishlist -->
+<div class="wishlist-box">
+    {% if user.is_authenticated %}
+        {% if destination in user.profile.wishlist.all %}
+            <a href="{% url 'remove-wishlist' destination.id %}" class="wishlist active">
+                ❤️ Remove from Wishlist
+            </a>
+        {% else %}
+            <a href="{% url 'add-wishlist' destination.id %}" class="wishlist">
+                🤍 Add to Wishlist
+            </a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}" class="wishlist">🤍 Add to Wishlist</a>
+    {% endif %}
+</div>
+
+            <a href="{% url 'destination-detail' destination.pk %}" class="btn btn-card">View Details</a>
+        </div>
+        {% empty %}
+        <p style="text-align:center; color:#fff;">No destinations available.</p>
+        {% endfor %}
+    </section>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="current">{{ num }}</span>
+            {% else %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </div>
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>CONTACT</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Gandhinagar, Gujarat, India</p>
+                <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                <p><i class="fas fa-envelope"></i> support@gujarattourism.com</p>
+            </div>
+            <div class="footer-section">
+                <h4>EXPLORE</h4>
+                <ul>
+                    <li><a href="{% url 'destinations-static' %}">Destinations</a></li>
+                    <li><a href="{% url 'festivals' %}">Festivals</a></li>
+                    <li><a href="#">Packages</a></li>
+                    <li><a href="#">Gallery</a></li>
+                </ul>
+            </div>
+            <!-- Company -->
+      <div class="footer-section">
+        <h4>COMPANY</h4>
+        <ul>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'our_team' %}">Our Team</a></li>
+          <li><a href="{% url 'careers' %}">Careers</a></li>
+          <li><a href="{% url 'press' %}">Press</a></li>
+        </ul>
+      </div>
+
+      <!-- Help Center -->
+      <div class="footer-section">
+        <h4>HELP CENTER</h4>
+        <ul>
+          <li><a href="{% url 'faqs' %}">FAQs</a></li>
+          <li><a href="{% url 'support' %}">Support</a></li>
+          <li><a href="{% url 'terms' %}">Terms & Conditions</a></li>
+          <li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+
+        </ul>
+      </div>
+    </div>
+
+        <div class="footer-bottom">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2025 Gujarat Tourism | Designed with ❤️</p>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

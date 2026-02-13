@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Bookings - Gujarat Tourism</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("{% static 'images/bg2.png' %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      width: 95%;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      color: #d4af37;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      color: #222;
+    }
+
+    th {
+      background: #d4af37;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+
+    tr:hover {
+      background: #f1f1f1;
+    }
+
+    /* ✅ Button styles */
+    .btn {
+      padding: 6px 12px;
+      margin: 2px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .btn-confirm { background: green; color: white; }
+    .btn-pending { background: orange; color: white; }
+    .btn-cancel { background: red; color: white; }
+    .btn-delete { background: black; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>All Tour Bookings</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Destination</th>
+          <th>Travel Date</th>
+          <th>Persons</th>
+          <th>Booked At</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for booking in bookings %}
+        <tr>
+          <td>
+            {% if booking.user %}
+              {{ booking.user.username }}
+            {% else %}
+              {{ booking.full_name }}
+            {% endif %}
+          </td>
+          <td>{{ booking.email }}</td>
+          <td>{{ booking.phone }}</td>
+          <td>{{ booking.destination }}</td>
+          <td>{{ booking.travel_date|date:"M d, Y" }}</td>
+          <td>{{ booking.number_of_people }}</td>
+          <td>{{ booking.created_at|date:"M d, Y, h:i A" }}</td>
+          <td>
+            {% if booking.status == "confirmed" %}
+              <span style="color:green;font-weight:bold;">Confirmed</span>
+            {% elif booking.status == "cancelled" %}
+              <span style="color:red;font-weight:bold;">Cancelled</span>
+            {% else %}
+              <span style="color:orange;font-weight:bold;">Pending</span>
+            {% endif %}
+          </td>
+          <td>
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="booking_id" value="{{ booking.id }}">
+              <button type="submit" name="action" value="confirm" class="btn btn-confirm">Confirm</button>
+            </form>
+
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="booking_id" value="{{ booking.id }}">
+              <button type="submit" name="action" value="pending" class="btn btn-pending">Pending</button>
+            </form>
+
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="booking_id" value="{{ booking.id }}">
+              <button type="submit" name="action" value="cancel" class="btn btn-cancel">Cancel</button>
+            </form>
+
+            <form method="post" style="display:inline;">
+              {% csrf_token %}
+              <input type="hidden" name="booking_id" value="{{ booking.id }}">
+              <button type="submit" name="action" value="delete" class="btn btn-delete">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="9">No bookings yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

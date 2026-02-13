@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Tours</title>
+</head>
+<body>
+    <h1>Manage Tours</h1>
+
+    <!-- Add Tour Button -->
+    <a href="{% url 'destination-create' %}">➕ Add New Tour</a>
+
+    <hr>
+
+    <!-- Tours Table -->
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tour Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for destination in destinations %}
+            <tr>
+                <td>{{ destination.id }}</td>
+                <td>{{ destination.name }}</td>
+                <td>{{ destination.location }}</td>
+                <td>{{ destination.description|truncatewords:15 }}</td>
+                <td>{{ destination.price }}</td>
+                <td>
+                    {% if destination.image %}
+                        <img src="{{ destination.image.url }}" width="100">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'destination-update' destination.id %}">✏️ Edit</a> |
+                    <a href="{% url 'destination-delete' destination.id %}">🗑️ Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No tours found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

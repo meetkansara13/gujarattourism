@@ -1,0 +1,58 @@
+.festival-hero {
+  background: url('/static/images/festival-hero.jpg') center center/cover no-repeat;
+  height: 60vh;
+  position: relative;
+}
+.festival-hero .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  padding-top: 150px;
+}
+
+.festival-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+.festival-card {
+  width: 250px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+.festival-card:hover {
+  transform: scale(1.05);
+}
+.festival-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.festival-card h3 {
+  padding: 0.5rem 1rem;
+  color: #004d40;
+}
+.festival-card p {
+  padding: 0 1rem 1rem;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.book-now-cta {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #004d40;
+  color: #fff;
+}
+.book-now-cta .book-btn {
+  background: #ffc107;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+}

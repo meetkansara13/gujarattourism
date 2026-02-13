@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Admin</title>
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/dashboard.css' %}">
+    <script src="{% static 'admin/js/core.js' %}"></script>
+</head>
+<body class="dashboard">
+    <div id="header">
+        <div id="branding">
+            <h1>Custom Admin Panel</h1>
+        </div>
+        <div id="user-tools">
+            Welcome, {{ request.user.username }} |
+            <a href="{% url 'logout' %}">Log out</a>
+        </div>
+    </div>
+    <div id="content" class="colM">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
