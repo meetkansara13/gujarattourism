@@ -13,7 +13,7 @@ A tourism booking and information web application built using Django.
 ## 🛠 Tech Stack
 - Python
 - Django
-- SQLite
+- SQLite 
 - HTML, CSS, Bootstrap
 
 ## 📦 Installation

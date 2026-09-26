@@ -6,9 +6,12 @@ from tourism.models import Destination, Booking
 from tourism.forms import DestinationForm
 from django.contrib.auth.models import User
 from tourism.models import Booking
+from django.views.decorators.http import require_POST
 
 
 
+@user_passes_test(lambda u: u.is_staff, login_url='custom_admin_login')
+@require_POST
 def edit_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
 
@@ -18,6 +21,8 @@ def edit_booking(request, booking_id):
         booking.save()
         return redirect("manage_bookings")
 
+@user_passes_test(lambda u: u.is_staff, login_url='custom_admin_login')
+@require_POST
 def delete_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
     booking.delete()
@@ -165,6 +170,7 @@ def edit_user(request, user_id):
 
 # ------------------ DELETE USER ------------------
 @user_passes_test(lambda u: u.is_staff)
+@require_POST
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
@@ -178,6 +184,7 @@ def delete_user(request, user_id):
     return redirect("manage_users")
 
 @user_passes_test(lambda u: u.is_staff)
+@require_POST
 def toggle_staff(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
